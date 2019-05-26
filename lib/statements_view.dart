@@ -15,6 +15,7 @@ class StatementsView extends StatefulWidget {
 
 class _StatementsViewState extends State<StatementsView> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<Statement> _statements;
 
   Widget _buildStack(List<Statement> statements) {
     return Stack(
@@ -22,10 +23,12 @@ class _StatementsViewState extends State<StatementsView> {
           .map((Statement statement) => GestureDetector(
                 key: Key(statement.text),
                 onTap: () {
+                  print(statements);
                   setState(() {
                     statements.remove(statement);
                     statements.insert(0, statement);
                   });
+                  print(statements);
                 },
                 child: StatementView(
                   text: statement.text,
@@ -36,13 +39,19 @@ class _StatementsViewState extends State<StatementsView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _statements = widget.statements.toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text('Never Have I Ever'),
       ),
-      body: _buildStack(widget.statements),
+      body: _buildStack(_statements),
     );
   }
 }

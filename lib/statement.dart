@@ -13,4 +13,9 @@ class Statement {
   String toJson() => json.encode({
         "statement": text,
       });
+
+  @override
+  String toString() {
+    return this.text;
+  }
 }

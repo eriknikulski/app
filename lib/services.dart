@@ -10,3 +10,9 @@ Future<Statement> getStatement(int i) async {
   final response = await http.get('$url/$i');
   return Statement.fromJson(response.body);
 }
+
+Future<List<Statement>> loadStatements() async {
+  List<Future<Statement>> statements =
+      List<int>.generate(16, (i) => i).map((i) => getStatement(i)).toList();
+  return Future.wait(statements);
+}
