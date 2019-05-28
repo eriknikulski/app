@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
       ),
       body: RaisedButton(
         child: Text('START'),
-        onPressed: () {
+        onPressed: () =>
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -49,8 +49,7 @@ class HomePageState extends State<HomePage> {
                         }
                       },
                     )),
-          );
-        },
+          ),
       ),
     );
   }
