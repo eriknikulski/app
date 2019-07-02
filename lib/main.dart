@@ -23,6 +23,6 @@ class MyApp extends StatelessWidget {
 
 ThemeData _buildAppTheme() {
   return ThemeData().copyWith(
-    textTheme: ThemeData().textTheme.apply(fontFamily: 'Exo 2'),
+    textTheme: ThemeData().textTheme.apply(fontFamily: 'Roboto'),
   );
 }

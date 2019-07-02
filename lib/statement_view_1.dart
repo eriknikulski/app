@@ -24,7 +24,7 @@ class StatementView extends StatelessWidget {
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
                   ),
                   Text(
-                    text,
+                    text.substring(18),
                     style: TextStyle(fontSize: 30.0),
                   ),
                 ],

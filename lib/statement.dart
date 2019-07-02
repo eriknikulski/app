@@ -7,7 +7,7 @@ class Statement {
 
   factory Statement.fromJson(String string) {
     final jsonData = json.decode(string);
-    return Statement(text: jsonData['text']);
+    return Statement(text: jsonData['statement']);
   }
 
   String toJson() => json.encode({

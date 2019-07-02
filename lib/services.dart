@@ -4,16 +4,10 @@ import 'package:http/http.dart' as http;
 
 import 'statement.dart';
 
-const String url =
-    'https://deac2a8c-9d50-491e-978e-dc493af441db.mock.pstmn.io/get';
+//const String url = 'http://192.168.178.45:5000/get/';
+const String url = 'https://api.neverhaveiever.io/v1/statement';
 
-Future<Statement> getStatement(int i) async {
-  final response = await http.get('$url/$i');
+Future<Statement> loadStatement() async {
+  final response = await http.get('$url');
   return Statement.fromJson(response.body);
-}
-
-Future<List<Statement>> loadStatements() async {
-  List<Future<Statement>> statements =
-      List<int>.generate(16, (i) => i).map((i) => getStatement(i)).toList();
-  return Future.wait(statements);
 }
