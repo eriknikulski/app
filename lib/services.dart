@@ -4,10 +4,11 @@ import 'package:http/http.dart' as http;
 
 import 'statement.dart';
 
-//const String url = 'http://192.168.178.45:5000/get/';
-const String url = 'https://api.neverhaveiever.io/v1/statement';
+const String url = 'https://api.neverhaveiever.io/v1';
 
-Future<Statement> loadStatement() async {
-  final response = await http.get('$url');
+Future<Statement> loadStatement({Map<String, Map<String, bool>> categories}) async {
+  String param = categories.keys.map((category) => '$category=${categories[category]['selected']}').join('&');
+
+  final response = await http.get('$url/statement?$param');
   return Statement.fromJson(response.body);
 }
