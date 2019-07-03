@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoryView extends StatelessWidget {
-  /// [name] like harmless, delicate, offensive -> is actually shown
-  CategoryView(
-      {this.name,
-      this.selected = false,
-      this.selectedImageUri,
-      this.unselectedImageUri,
-      this.height,
-      this.width,
-      this.handleCategoryChange})
-      : assert(name != null &&
-            selectedImageUri != null &&
-            unselectedImageUri != null);
+import 'category.dart';
 
-  final String name;
-  final String selectedImageUri;
-  final String unselectedImageUri;
-  final bool selected;
+class CategoryView extends StatelessWidget {
+  CategoryView(
+      {this.category, this.height, this.width, this.handleCategoryChange})
+      : assert(category != null &&
+            width != null &&
+            height != null &&
+            handleCategoryChange != null);
+
+  final Category category;
   final double width;
   final double height;
   final Function handleCategoryChange;
@@ -28,23 +21,24 @@ class CategoryView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
-          handleCategoryChange(name);
-          // TODO: check that not all unselected
-        },
+        onTap: () => handleCategoryChange(category),
         child: SizedBox(
           child: Column(
             children: <Widget>[
               SvgPicture.asset(
-                selected ? selectedImageUri : unselectedImageUri,
+                category.selected
+                    ? category.selectedImageUri
+                    : category.unselectedImageUri,
                 height: height,
                 width: width,
               ),
               Text(
-                name,
+                category.name,
                 style: TextStyle(
                     fontSize: 16.0,
-                    color: selected ? Color(0xFF616161) : Color(0xFF9e9e9e)),
+                    color: category.selected
+                        ? Color(0xFF616161)
+                        : Color(0xFF9e9e9e)),
               ),
             ],
           ),

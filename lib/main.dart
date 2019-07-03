@@ -6,7 +6,7 @@ import 'home.dart';
 final ThemeData _AppTheme = _buildAppTheme();
 
 void main() {
-  debugPaintSizeEnabled=true;
+  debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 

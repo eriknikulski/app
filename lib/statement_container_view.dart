@@ -16,39 +16,26 @@ class StatementContainerView extends StatefulWidget {
 class _StatementContainerViewState extends State<StatementContainerView> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   // TODO: hardcoded date eventuell auslagern auch siehe svgHeight, svgWidth
-  final Map<String, Map<String, dynamic>> svgData = {
-    'harmless': {
-      'images': {true: 'images/mojito.svg', false: 'images/mojito_gray.svg'},
-      'selected': true
-    },
-    'delicate': {
-      'images': {true: 'images/beer.svg', false: 'images/beer_gray.svg'},
-      'selected': false
-    },
-    'offensive': {
-      'images': {
-        true: 'images/cocktail.svg',
-        false: 'images/cocktail_gray.svg'
-      },
-      'selected': false
-    },
-  };
+
+  final List<Category> categories = [
+    Category(
+        name: 'harmless',
+        selectedImageUri: 'images/mojito.svg',
+        unselectedImageUri: 'images/mojito_gray.svg',
+        selected: true),
+    Category(
+        name: 'delicate',
+        selectedImageUri: 'images/beer.svg',
+        unselectedImageUri: 'images/beer_gray.svg',
+        selected: false),
+    Category(
+        name: 'offensive',
+        selectedImageUri: 'images/cocktail.svg',
+        unselectedImageUri: 'images/cocktail_gray.svg',
+        selected: false),
+  ];
 
   Future<Statement> _statement;
-  Map<String, Map<String, bool>> categories = {
-    'harmless': {
-      'selected': true,
-    },
-    'delicate': {
-      'selected': false,
-    },
-    'offensive': {
-      'selected': false,
-    },
-  };
-
-  handleCategorySelectionToggle(category) => setState(() =>
-      categories[category]['selected'] = !categories[category]['selected']);
 
   Widget categorySelection(context) {
     double svgHeight = MediaQuery.of(context).size.height * 0.16 > 72
@@ -57,10 +44,9 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     double svgWidth = 65;
 
     return CategoriesView(
-      data: svgData,
+      data: categories,
       height: svgHeight,
       elementWidth: svgWidth,
-      categorySelectionChange: handleCategorySelectionToggle,
     );
   }
 
