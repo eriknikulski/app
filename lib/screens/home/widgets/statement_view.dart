@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'statement.dart';
+import 'package:never_have_i_ever/models/statement.dart';
 
 class StatementView extends StatelessWidget {
   StatementView({this.futureText}) : assert(futureText != null);
@@ -14,8 +14,11 @@ class StatementView extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
+            // TODO: implement handling
           case ConnectionState.waiting:
+            // TODO: implement handling
           case ConnectionState.active:
+            // TODO: implement handling
           case ConnectionState.done:
             return Padding(
               padding: const EdgeInsets.all(16.0),

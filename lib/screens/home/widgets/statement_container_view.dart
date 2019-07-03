@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'category.dart';
-import 'categories_view.dart';
-import 'services.dart';
-import 'statement.dart';
-import 'statement_view.dart';
+import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/statement.dart';
+import 'package:never_have_i_ever/screens/home/widgets/categories_view.dart';
+import 'package:never_have_i_ever/screens/home/widgets/statement_view.dart';
+import 'package:never_have_i_ever/services/services.dart';
 
 class StatementContainerView extends StatefulWidget {
   @override
@@ -44,9 +44,9 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     double svgWidth = 65;
 
     return CategoriesView(
-      data: categories,
+      categories: categories,
       height: svgHeight,
-      elementWidth: svgWidth,
+      categoryPictureWidth: svgWidth,
     );
   }
 

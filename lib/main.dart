@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'home.dart';
-
-final ThemeData _AppTheme = _buildAppTheme();
+import 'package:never_have_i_ever/screens/home/home.dart';
+import 'package:never_have_i_ever/theme/style.dart';
 
 void main() {
   debugPaintSizeEnabled = true;
@@ -16,13 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: HomePage(),
-      theme: _AppTheme,
+      theme: appTheme(),
     );
   }
-}
-
-ThemeData _buildAppTheme() {
-  return ThemeData().copyWith(
-    textTheme: ThemeData().textTheme.apply(fontFamily: 'Roboto'),
-  );
 }

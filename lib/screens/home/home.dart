@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'statement_container_view.dart';
+import 'package:never_have_i_ever/screens/home/widgets/statement_container_view.dart';
 
 class HomePage extends StatelessWidget {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
