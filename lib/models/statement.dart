@@ -16,6 +16,6 @@ class Statement {
 
   @override
   String toString() {
-    return this.text;
+    return 'Statement: {text: $text}';
   }
 }

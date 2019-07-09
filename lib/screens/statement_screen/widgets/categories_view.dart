@@ -20,12 +20,11 @@ class CategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: this
-          .categories
+      children: categories
           .map((category) => CategoryView(
                 category: category,
-                height: this.height,
-                width: this.categoryPictureWidth,
+                height: height,
+                width: categoryPictureWidth,
               ))
           .toList(),
     );

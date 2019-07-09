@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
 
 class CategoryView extends StatefulWidget {
-  CategoryView(
-      {this.category, this.height, this.width})
-      : assert(category != null &&
-            width != null &&
-            height != null);
+  CategoryView({this.category, this.height, this.width})
+      : assert(category != null && width != null && height != null);
 
   final Category category;
   final double width;

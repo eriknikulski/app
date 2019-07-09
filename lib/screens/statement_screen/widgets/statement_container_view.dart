@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
+import 'package:never_have_i_ever/blocs/statement_bloc.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
-import 'package:never_have_i_ever/services/services.dart';
 
 class StatementContainerView extends StatefulWidget {
   @override
@@ -35,13 +33,11 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         selected: false),
   ];
 
-  Future<Statement> _statement;
-
-  Widget categorySelection(context) {
+  Widget categorySelection(BuildContext context) {
+    double svgWidth = 65;
     double svgHeight = MediaQuery.of(context).size.height * 0.16 > 72
         ? 72
         : MediaQuery.of(context).size.height * 0.16;
-    double svgWidth = 65;
 
     return CategoriesView(
       categories: categories,
@@ -50,20 +46,39 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     );
   }
 
+  Widget buildStatementView(BuildContext context) {
+    return StreamBuilder(
+      stream: bloc.statement,
+      builder: (BuildContext context, AsyncSnapshot<Statement> snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        } else if (snapshot.hasData) {
+          return StatementView(
+            statement: snapshot.data,
+          );
+        }
+        bloc.fetchStatement(categories);
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _statement = loadStatement(categories: categories);
+    bloc.fetchStatement(categories);
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _statement = loadStatement(categories: categories);
-        });
-      },
+      onTap: () => bloc.fetchStatement(categories),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,9 +92,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     categorySelection(context),
-                    StatementView(
-                      futureText: _statement,
-                    ),
+                    buildStatementView(context),
                   ],
                 ),
               ),

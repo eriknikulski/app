@@ -9,4 +9,14 @@ class Category {
       this.selectedImageUri,
       this.unselectedImageUri,
       this.selected});
+
+  @override
+  String toString() {
+    return 'Category: {'
+        'name: $name, '
+        'selectedImageUri: $selectedImageUri, '
+        'unselectedImageUri: $unselectedImageUri, '
+        'selected: $selected'
+        '}';
+  }
 }
