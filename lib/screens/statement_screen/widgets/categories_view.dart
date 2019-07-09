@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/screens/home/widgets/category_view.dart';
+import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
 
 class CategoriesView extends StatelessWidget {
   /// Creates a row with the categories.

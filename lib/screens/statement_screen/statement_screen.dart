@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:never_have_i_ever/screens/home/widgets/statement_container_view.dart';
+import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_container_view.dart';
 
-class HomePage extends StatelessWidget {
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
+class StatementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

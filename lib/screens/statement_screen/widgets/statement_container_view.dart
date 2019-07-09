@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
-import 'package:never_have_i_ever/screens/home/widgets/categories_view.dart';
-import 'package:never_have_i_ever/screens/home/widgets/statement_view.dart';
+import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
+import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
 import 'package:never_have_i_ever/services/services.dart';
 
 class StatementContainerView extends StatefulWidget {
