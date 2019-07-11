@@ -18,18 +18,18 @@ class _StatementContainerViewState extends State<StatementContainerView> {
   final List<Category> categories = [
     Category(
         name: 'harmless',
-        selectedImageUri: 'images/mojito.svg',
-        unselectedImageUri: 'images/mojito_gray.svg',
+        selectedImageUri: 'images/mojito.png',
+        unselectedImageUri: 'images/mojito_gray.png',
         selected: true),
     Category(
         name: 'delicate',
-        selectedImageUri: 'images/beer.svg',
-        unselectedImageUri: 'images/beer_gray.svg',
+        selectedImageUri: 'images/beer.png',
+        unselectedImageUri: 'images/beer_gray.png',
         selected: false),
     Category(
         name: 'offensive',
-        selectedImageUri: 'images/cocktail.svg',
-        unselectedImageUri: 'images/cocktail_gray.svg',
+        selectedImageUri: 'images/cocktail.png',
+        unselectedImageUri: 'images/cocktail_gray.png',
         selected: false),
   ];
 

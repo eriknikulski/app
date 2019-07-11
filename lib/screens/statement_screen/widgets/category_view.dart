@@ -28,7 +28,7 @@ class _CategoryViewState extends State<CategoryView> {
         child: SizedBox(
           child: Column(
             children: <Widget>[
-              SvgPicture.asset(
+              Image.asset(
                 widget.category.selected
                     ? widget.category.selectedImageUri
                     : widget.category.unselectedImageUri,
