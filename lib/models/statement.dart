@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 class Statement {
-  String text;
+  final String text;
 
-  Statement({this.text});
+  const Statement({this.text});
 
   factory Statement.fromJson(String string) {
     final jsonData = json.decode(string);

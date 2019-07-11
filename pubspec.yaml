@@ -38,13 +38,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Regular.ttf
-    - family: Exo 2
-      fonts:
-        - asset: fonts/Exo2-Medium.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:

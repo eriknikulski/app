@@ -37,12 +37,12 @@ class _CategoryViewState extends State<CategoryView> {
               ),
               Text(
                 widget.category.name,
-                style: TextStyle(
-                    fontSize: 16.0,
-                    color: widget.category.selected
-                        ? Color(0xFF616161)
-                        : Color(0xFF9e9e9e)),
-              ),
+                style: Theme.of(context).textTheme.subhead.copyWith(
+                  color: widget.category.selected
+                      ? Theme.of(context).textTheme.subhead.color
+                      : Color(0xFF9e9e9e),
+                  ),
+                ),
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class StatementView extends StatelessWidget {
       child: Text(
         statement.text,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 36.0, color: Color(0xFF424242)),
+        style: Theme.of(context).textTheme.display1,
       ),
     );
   }
