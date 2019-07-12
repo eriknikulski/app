@@ -23,8 +23,6 @@ class StatementApiProvider {
         .where((element) => element != null)
         .join('&');
 
-    print('$baseUrl/statements/random?$params');
-
     final response =
         await http.get('$baseUrl/statements/random?$params');
 
