@@ -19,12 +19,13 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onTap: () {
-          setState(() => widget.category.selected = !widget.category.selected);
-        },
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        setState(() => widget.category.selected = !widget.category.selected);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           child: Column(
             children: <Widget>[
@@ -38,11 +39,11 @@ class _CategoryViewState extends State<CategoryView> {
               Text(
                 widget.category.name,
                 style: Theme.of(context).textTheme.subhead.copyWith(
-                  color: widget.category.selected
-                      ? Theme.of(context).textTheme.subhead.color
-                      : Color(0xFF9e9e9e),
-                  ),
-                ),
+                      color: widget.category.selected
+                          ? Theme.of(context).textTheme.subhead.color
+                          : Color(0xFF9e9e9e),
+                    ),
+              ),
             ],
           ),
         ),
