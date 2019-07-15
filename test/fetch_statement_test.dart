@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -35,6 +37,44 @@ main() {
 
       expect(response, isInstanceOf<Statement>());
       expect(response.text, 'Never have I ever told somebody that I love his/her body.');
+    });
+
+    test('no internet connection', () async {
+      final client = MockClient();
+      final category = Category(
+          name: 'harmless',
+          selectedImageUri: 'images/mojito.png',
+          unselectedImageUri: 'images/mojito_gray.png',
+          selected: true);
+
+      when(client.get(
+          'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+          .thenAnswer((_) async => throw SocketException('Bad status code'));
+
+      StatementApiProvider.client = client;
+      var response = await StatementApiProvider.fetchStatement([category]);
+
+      expect(response, isInstanceOf<Statement>());
+      expect(response.text, 'No internet connection');
+    });
+
+    test('bad http status code', () async {
+      final client = MockClient();
+      final category = Category(
+          name: 'harmless',
+          selectedImageUri: 'images/mojito.png',
+          unselectedImageUri: 'images/mojito_gray.png',
+          selected: true);
+
+      when(client.get(
+          'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+          .thenAnswer((_) async => http.Response('', 400));
+
+      StatementApiProvider.client = client;
+      var response = await StatementApiProvider.fetchStatement([category]);
+
+      expect(response, isInstanceOf<Statement>());
+      expect(response.text, 'No internet connection');
     });
   });
 }

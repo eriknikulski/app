@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 
 import 'package:never_have_i_ever/env.dart';
@@ -24,12 +26,16 @@ class StatementApiProvider {
         .where((element) => element != null)
         .join('&');
 
-    final response = await client.get('$baseUrl/statements/random?$params');
+    try {
+      final response = await client.get('$baseUrl/statements/random?$params');
 
-    if (response.statusCode == 200) {
-      return Statement.fromJson(response.body);
-    } else {
-      return null;
+      if (response.statusCode == 200) {
+        return Statement.fromJson(response.body);
+      } else {
+        throw SocketException('Bad status code');
+      }
+    } on SocketException catch (_) {
+      return Statement(text: 'No internet connection');
     }
   }
 }
