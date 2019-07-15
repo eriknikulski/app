@@ -12,7 +12,6 @@ void main() {
 
     await tester.pumpWidget(App());
 
-    expect(find.text('Never Have I Ever'), findsOneWidget);
     find.byWidget(CircularProgressIndicator());
   });
 }
