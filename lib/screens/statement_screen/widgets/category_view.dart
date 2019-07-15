@@ -1,13 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 
 class CategoryView extends StatefulWidget {
   CategoryView({this.category}) : assert(category != null);
 
-  final Category category;
+  final CategoryIcon category;
 
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -53,7 +54,7 @@ class _CategoryViewState extends State<CategoryView> {
                 width: width,
               ),
               Text(
-                widget.category.name,
+                describeEnum(widget.category.name),
                 style: Theme.of(context).textTheme.subhead.copyWith(
                       color: widget.category.selected
                           ? Theme.of(context).textTheme.subhead.color

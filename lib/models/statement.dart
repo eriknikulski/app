@@ -1,13 +1,23 @@
 import 'dart:convert';
 
-class Statement {
-  final String text;
+import 'package:quiver/core.dart';
 
-  const Statement({this.text});
+import 'package:never_have_i_ever/models/category.dart';
+
+class Statement {
+  final String uuid;
+  final String text;
+  final Category category;
+
+  const Statement({this.text, this.uuid, this.category});
 
   factory Statement.fromJson(String string) {
     final jsonData = json.decode(string);
-    return Statement(text: jsonData['statement']);
+    return Statement(
+        uuid: jsonData['ID'],
+        text: jsonData['statement'],
+        category: Category.values.firstWhere(
+            (e) => e.toString() == 'Category.${jsonData['category']}'));
   }
 
   String toJson() => json.encode({
@@ -25,7 +35,7 @@ class Statement {
       return false;
     }
 
-    if (text != other.text) {
+    if (hashCode != other.hashCode) {
       return false;
     }
 
@@ -33,7 +43,5 @@ class Statement {
   }
 
   @override
-  int get hashCode => text.hashCode;
-
-
+  int get hashCode => hash3(uuid, text, category);
 }

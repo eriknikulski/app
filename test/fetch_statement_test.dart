@@ -6,6 +6,7 @@ import 'package:mockito/mockito.dart';
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
@@ -22,8 +23,8 @@ main() {
       final client = MockClient();
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);
@@ -41,8 +42,8 @@ main() {
 
     test('no internet connection', () async {
       final client = MockClient();
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);
@@ -61,8 +62,8 @@ main() {
 
     test('bad http status code', () async {
       final client = MockClient();
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);

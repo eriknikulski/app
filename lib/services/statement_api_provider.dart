@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
 class StatementApiProvider {
@@ -16,14 +17,17 @@ class StatementApiProvider {
   /// If no `Category` in [categories] is selected an `AssertionError` is thrown.
   /// If the response status code is any other than 200 a `SocketException` is thrown
   /// with the message 'Bad status code'.
-  static Future<Statement> fetchStatement(List<Category> categories) async {
-    if (categories.isEmpty || categories is! List<Category>) {
+  static Future<Statement> fetchStatement(List<CategoryIcon> categories) async {
+    if (categories.isEmpty || categories is! List<CategoryIcon>) {
       throw ArgumentError('No valid argument');
     }
-    assert(!categories.every((category) => !category.selected), 'No category selected');
+    assert(!categories.every((category) => !category.selected),
+        'No category selected');
 
     String params = categories
-        .map((category) => category.selected ? 'category[]=${category.name}' : null)
+        .map((category) => category.selected
+            ? 'category[]=${describeEnum(category.name)}'
+            : null)
         .where((element) => element != null)
         .join('&');
 

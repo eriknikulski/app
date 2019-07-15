@@ -7,6 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/blocs/statement_bloc.dart';
 import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
@@ -25,18 +26,23 @@ main() {
       final client = MockClient();
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);
+      var expectedResponse = Statement(
+          uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+          text: 'Never have I ever told somebody that I love his/her body.',
+          category: Category.harmless,
+      );
 
       StatementApiProvider.client = client;
       when(client.get(
           'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
 
-      expectLater(bloc.statement, emits(Statement(text: 'Never have I ever told somebody that I love his/her body.')));
+      expectLater(bloc.statement, emits(expectedResponse));
 
       bloc.fetchStatement([category]);
     });
@@ -60,8 +66,8 @@ main() {
       final client = MockClient();
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: false);
@@ -80,8 +86,8 @@ main() {
       final client = MockClient();
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);
@@ -98,8 +104,8 @@ main() {
 
     test('statement at socket exception', () async {
       final client = MockClient();
-      final category = Category(
-          name: 'harmless',
+      final category = CategoryIcon(
+          name: Category.harmless,
           selectedImageUri: 'images/mojito.png',
           unselectedImageUri: 'images/mojito_gray.png',
           selected: true);

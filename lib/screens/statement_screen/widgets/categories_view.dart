@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
 
 class CategoriesView extends StatelessWidget {
@@ -9,7 +9,7 @@ class CategoriesView extends StatelessWidget {
   /// The [categories] argument must not be null.
   CategoriesView({this.categories}) : assert(categories != null);
 
-  final List<Category> categories;
+  final List<CategoryIcon> categories;
 
   @override
   Widget build(BuildContext context) {

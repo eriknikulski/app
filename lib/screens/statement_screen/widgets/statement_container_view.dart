@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:never_have_i_ever/blocs/statement_bloc.dart';
 import 'package:never_have_i_ever/models/category.dart';
+import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
@@ -13,19 +14,19 @@ class StatementContainerView extends StatefulWidget {
 
 class _StatementContainerViewState extends State<StatementContainerView> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  final List<Category> categories = [
-    Category(
-        name: 'harmless',
+  final List<CategoryIcon> categories = [
+    CategoryIcon(
+        name: Category.harmless,
         selectedImageUri: 'images/mojito.png',
         unselectedImageUri: 'images/mojito_gray.png',
         selected: true),
-    Category(
-        name: 'delicate',
+    CategoryIcon(
+        name: Category.delicate,
         selectedImageUri: 'images/beer.png',
         unselectedImageUri: 'images/beer_gray.png',
         selected: false),
-    Category(
-        name: 'offensive',
+    CategoryIcon(
+        name: Category.offensive,
         selectedImageUri: 'images/cocktail.png',
         unselectedImageUri: 'images/cocktail_gray.png',
         selected: false),
