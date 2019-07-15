@@ -6,9 +6,6 @@ class StatementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Never Have I Ever'),
-      ),
       body: StatementContainerView(),
     );
   }
