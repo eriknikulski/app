@@ -7,7 +7,8 @@ import 'package:never_have_i_ever/screens/app.dart';
 void main() {
   debugPaintSizeEnabled = true;
   BuildEnvironment.init(
-    flavor: BuildFlavor.development, baseUrl: 'https://api.neverhaveiever.io/v1/');
+      flavor: BuildFlavor.development,
+      baseUrl: 'https://api.neverhaveiever.io/v1');
   assert(env != null);
 
   runApp(App());
