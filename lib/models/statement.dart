@@ -18,4 +18,22 @@ class Statement {
   String toString() {
     return 'Statement: {text: $text}';
   }
+
+  @override
+  bool operator ==(other) {
+    if (other is! Statement) {
+      return false;
+    }
+
+    if (text != other.text) {
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
+  int get hashCode => text.hashCode;
+
+
 }

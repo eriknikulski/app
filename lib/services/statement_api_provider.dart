@@ -12,30 +12,27 @@ class StatementApiProvider {
 
   /// Returns `Future<Statement>` from [baseUrl] based on [categories].
   ///
-  /// If there is no internet connection a `Statement` with the text: 'No internet connection' is returned.
-  /// If no `Category` in [categories] is selected this method returns a `Statement` with text: 'Please select a category to continue'.
-  /// If the response status code is not 200 this method returns `null`.
+  /// If [categories] is not provided correctly an `ArgumentError` is thrown.
+  /// If no `Category` in [categories] is selected an `AssertionError` is thrown.
+  /// If the response status code is any other than 200 a `SocketException` is thrown
+  /// with the message 'Bad status code'.
   static Future<Statement> fetchStatement(List<Category> categories) async {
-    if (categories.every((category) => !category.selected)) {
-      return Statement(text: 'Please select a category to continue');
+    if (categories.isEmpty || categories is! List<Category>) {
+      throw ArgumentError('No valid argument');
     }
+    assert(!categories.every((category) => !category.selected), 'No category selected');
 
     String params = categories
-        .map((category) =>
-            category.selected ? 'category[]=${category.name}' : null)
+        .map((category) => category.selected ? 'category[]=${category.name}' : null)
         .where((element) => element != null)
         .join('&');
 
-    try {
-      final response = await client.get('$baseUrl/statements/random?$params');
+    final response = await client.get('$baseUrl/statements/random?$params');
 
-      if (response.statusCode == 200) {
-        return Statement.fromJson(response.body);
-      } else {
-        throw SocketException('Bad status code');
-      }
-    } on SocketException catch (_) {
-      return Statement(text: 'No internet connection');
+    if (response.statusCode == 200) {
+      return Statement.fromJson(response.body);
+    } else {
+      throw SocketException('Bad status code');
     }
   }
 }

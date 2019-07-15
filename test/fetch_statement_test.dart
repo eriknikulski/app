@@ -49,13 +49,14 @@ main() {
 
       when(client.get(
           'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
-          .thenAnswer((_) async => throw SocketException('Bad status code'));
+          .thenAnswer((_) async => throw SocketException('Failed host lookup:'));
 
       StatementApiProvider.client = client;
-      var response = await StatementApiProvider.fetchStatement([category]);
-
-      expect(response, isInstanceOf<Statement>());
-      expect(response.text, 'No internet connection');
+      try {
+        await StatementApiProvider.fetchStatement([category]);
+      } on SocketException catch (e) {
+        expect(e.toString().contains('SocketException: Failed host lookup:'), isTrue);
+      }
     });
 
     test('bad http status code', () async {
@@ -71,10 +72,11 @@ main() {
           .thenAnswer((_) async => http.Response('', 400));
 
       StatementApiProvider.client = client;
-      var response = await StatementApiProvider.fetchStatement([category]);
-
-      expect(response, isInstanceOf<Statement>());
-      expect(response.text, 'No internet connection');
+      try {
+        await StatementApiProvider.fetchStatement([category]);
+      } on SocketException catch (e) {
+        expect(e.toString(), 'SocketException: Bad status code');
+      }
     });
   });
 }
