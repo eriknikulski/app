@@ -7,14 +7,9 @@ class CategoriesView extends StatelessWidget {
   /// Creates a row with the categories.
   ///
   /// The [categories] argument must not be null.
-  CategoriesView({this.categories, this.height, this.categoryPictureWidth})
-      : assert(categories != null &&
-            height != null &&
-            categoryPictureWidth != null);
+  CategoriesView({this.categories}) : assert(categories != null);
 
   final List<Category> categories;
-  final double height;
-  final double categoryPictureWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +18,6 @@ class CategoriesView extends StatelessWidget {
       children: categories
           .map((category) => CategoryView(
                 category: category,
-                height: height,
-                width: categoryPictureWidth,
               ))
           .toList(),
     );

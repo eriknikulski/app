@@ -13,8 +13,6 @@ class StatementContainerView extends StatefulWidget {
 
 class _StatementContainerViewState extends State<StatementContainerView> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  // TODO: hardcoded date eventuell auslagern auch siehe svgHeight, svgWidth
-
   final List<Category> categories = [
     Category(
         name: 'harmless',
@@ -32,19 +30,6 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         unselectedImageUri: 'images/cocktail_gray.png',
         selected: false),
   ];
-
-  Widget categorySelection(BuildContext context) {
-    double svgWidth = 65;
-    double svgHeight = MediaQuery.of(context).size.height * 0.16 > 72
-        ? 72
-        : MediaQuery.of(context).size.height * 0.16;
-
-    return CategoriesView(
-      categories: categories,
-      height: svgHeight,
-      categoryPictureWidth: svgWidth,
-    );
-  }
 
   Widget buildStatementView(BuildContext context) {
     return StreamBuilder(
@@ -91,7 +76,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    categorySelection(context),
+                    CategoriesView(categories: categories),
                     buildStatementView(context),
                   ],
                 ),
