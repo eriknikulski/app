@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
 import 'package:quiver/core.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
@@ -9,7 +10,8 @@ class Statement {
   final String text;
   final Category category;
 
-  const Statement({this.text, this.uuid, this.category});
+  const Statement(
+      {@required this.text, @required this.uuid, @required this.category});
 
   factory Statement.fromJson(String string) {
     final jsonData = json.decode(string);
@@ -20,13 +22,9 @@ class Statement {
             (e) => e.toString() == 'Category.${jsonData['category']}'));
   }
 
-  String toJson() => json.encode({
-        "statement": text,
-      });
-
   @override
   String toString() {
-    return 'Statement: {text: $text}';
+    return 'Statement: {uuid: $uuid, text: $text, category: $category}';
   }
 
   @override
