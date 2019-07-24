@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' as fd;
+import 'package:meta/meta.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
 
@@ -9,10 +9,10 @@ class CategoryIcon {
   bool selected;
 
   CategoryIcon(
-      {@fd.required this.name,
-      @fd.required this.selectedImageUri,
-      @fd.required this.unselectedImageUri,
-      @fd.required this.selected});
+      {@required this.name,
+      @required this.selectedImageUri,
+      @required this.unselectedImageUri,
+      @required this.selected});
 
   @override
   String toString() {
