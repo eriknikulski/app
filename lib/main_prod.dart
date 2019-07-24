@@ -6,7 +6,8 @@ import 'package:never_have_i_ever/screens/app.dart';
 void main() {
   BuildEnvironment.init(
       flavor: BuildFlavor.production,
-      baseUrl: 'https://api.neverhaveiever.io/v1');
+      baseUrl: 'https://api.neverhaveiever.io/v1',
+      maxApiCallTries: 50);
   assert(env != null);
 
   runApp(App());

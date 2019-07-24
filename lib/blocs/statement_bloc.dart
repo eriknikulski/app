@@ -19,10 +19,16 @@ class StatementBloc {
 
   fetchStatement(List<CategoryIcon> categories) async {
     Statement statement;
+    var tries = 0;
 
     try {
-      while(statement == null || pastStatements.contains(statement.uuid)) {
+      while (tries < env.maxApiCallTries &&
+          (statement == null || pastStatements.contains(statement.uuid))) {
+        tries++;
         statement = await StatementApiProvider.fetchStatement(categories);
+      }
+      if (tries == env.maxApiCallTries) {
+        statement = Statement(text: 'Please try again');
       }
     } on ArgumentError catch (e) {
       print(e);

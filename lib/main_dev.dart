@@ -8,7 +8,8 @@ void main() {
   debugPaintSizeEnabled = true;
   BuildEnvironment.init(
       flavor: BuildFlavor.development,
-      baseUrl: 'https://api.neverhaveiever.io/v1');
+      baseUrl: 'https://api.neverhaveiever.io/v1',
+      maxApiCallTries: 50);
   assert(env != null);
 
   runApp(App());
