@@ -10,7 +10,7 @@ import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
-import 'setup.dart';
+import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 

@@ -7,7 +7,7 @@ import 'package:never_have_i_ever/screens/statement_screen/statement_screen.dart
 import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
-import 'setup.dart';
+import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 
