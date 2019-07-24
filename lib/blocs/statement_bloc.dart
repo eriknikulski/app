@@ -1,9 +1,9 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:never_have_i_ever/env.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
@@ -37,11 +37,7 @@ class StatementBloc {
     } on AssertionError catch (e) {
       print(e);
 
-      if (e.message == 'No category selected') {
-        statement = Statement(text: 'Please select a category to continue');
-      } else {
-        statement = Statement(text: 'Internal error');
-      }
+      statement = Statement(text: 'Please select a category to continue');
     } on SocketException catch (e) {
       print(e);
 
