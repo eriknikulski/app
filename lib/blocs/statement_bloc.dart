@@ -1,11 +1,15 @@
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:never_have_i_ever/env.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
+
+StatementBloc get bloc => _bloc ??= StatementBloc();
+StatementBloc _bloc;
 
 class StatementBloc {
   final _statementFetcher = PublishSubject<Statement>();
@@ -27,7 +31,7 @@ class StatementBloc {
     } on AssertionError catch (e) {
       print(e);
 
-      if (e.toString().contains('No category selected')) {
+      if (e.message == 'No category selected') {
         statement = Statement(text: 'Please select a category to continue');
       } else {
         statement = Statement(text: 'Internal error');
@@ -35,7 +39,7 @@ class StatementBloc {
     } on SocketException catch (e) {
       print(e);
 
-      if (e.toString() == 'SocketException: Bad status code') {
+      if (e.message == 'Bad status code') {
         statement = Statement(text: 'Bad server response');
       } else {
         statement = Statement(text: 'No internet connection');
@@ -50,7 +54,8 @@ class StatementBloc {
     _statementFetcher.sink.add(statement);
   }
 
-  dispose() => _statementFetcher.close();
+  dispose() {
+    _statementFetcher.close();
+    _bloc = null;
+  }
 }
-
-final bloc = StatementBloc();

@@ -43,7 +43,6 @@ class _StatementContainerViewState extends State<StatementContainerView> {
             statement: snapshot.data,
           );
         }
-        bloc.fetchStatement(categories);
         return CircularProgressIndicator();
       },
     );
