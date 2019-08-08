@@ -50,7 +50,8 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
-      expectLater(bloc.statement, emits(Statement(text: 'Internal error')));
+      expectLater(bloc.statement,
+          emits(Statement(text: 'Internal error', uuid: null, category: null)));
       bloc.fetchStatement([]);
     });
 
@@ -66,8 +67,12 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
-      expectLater(bloc.statement,
-          emits(Statement(text: 'Please select a category to continue')));
+      expectLater(
+          bloc.statement,
+          emits(Statement(
+              text: 'Please select a category to continue',
+              uuid: null,
+              category: null)));
       bloc.fetchStatement([category]);
     });
 
@@ -79,7 +84,9 @@ main() {
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 400));
       expectLater(
-          bloc.statement, emits(Statement(text: 'Bad server response')));
+          bloc.statement,
+          emits(Statement(
+              text: 'Bad server response', uuid: null, category: null)));
       bloc.fetchStatement([category]);
     });
 
@@ -89,7 +96,9 @@ main() {
           .thenAnswer((_) async =>
               throw SocketException('SocketException: Failed host lookup:'));
       expectLater(
-          bloc.statement, emits(Statement(text: 'No internet connection')));
+          bloc.statement,
+          emits(Statement(
+              text: 'No internet connection', uuid: null, category: null)));
       bloc.fetchStatement([category]);
     });
   });

@@ -28,23 +28,29 @@ class StatementBloc {
         statement = await StatementApiProvider.fetchStatement(categories);
       }
       if (tries == env.maxApiCallTries) {
-        statement = Statement(text: 'Please try again');
+        statement =
+            Statement(text: 'Please try again', uuid: null, category: null);
       }
     } on ArgumentError catch (e) {
       print(e);
 
-      statement = Statement(text: 'Internal error');
+      statement = Statement(text: 'Internal error', uuid: null, category: null);
     } on AssertionError catch (e) {
       print(e);
 
-      statement = Statement(text: 'Please select a category to continue');
+      statement = Statement(
+          text: 'Please select a category to continue',
+          uuid: null,
+          category: null);
     } on SocketException catch (e) {
       print(e);
 
       if (e.message == 'Bad status code') {
-        statement = Statement(text: 'Bad server response');
+        statement =
+            Statement(text: 'Bad server response', uuid: null, category: null);
       } else {
-        statement = Statement(text: 'No internet connection');
+        statement = Statement(
+            text: 'No internet connection', uuid: null, category: null);
       }
     }
 
