@@ -26,12 +26,6 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.categories.every((category) => !category.selected)) {
-      setState(() {
-        widget.categories.forEach((category) => category.selected = true);
-      });
-    }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: widget.categories
