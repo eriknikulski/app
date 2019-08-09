@@ -22,6 +22,7 @@ main() {
       selected: true);
 
   test('return statements not in queueu', () async {
+    // TODO: rewrite
     final answer1 =
         '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
     final answer2 =
@@ -33,6 +34,9 @@ main() {
       text: 'Never have I ever told somebody that I love his/her body.',
       category: Category.harmless,
     );
+
+    // fetch first statement
+    bloc.fetchStatement([category]);
 
     StatementApiProvider.client = client;
     when(client.get(

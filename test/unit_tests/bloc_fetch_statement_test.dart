@@ -36,6 +36,9 @@ main() {
         category: Category.harmless,
       );
 
+      // fetch first statement
+      bloc.fetchStatement([category]);
+
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
