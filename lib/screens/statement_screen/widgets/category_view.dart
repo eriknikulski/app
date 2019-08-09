@@ -17,6 +17,8 @@ class CategoryView extends StatefulWidget {
 }
 
 class _CategoryViewState extends State<CategoryView> {
+  Image selectedImage;
+  Image unselectedImage;
   double width = 65;
   double height;
 
@@ -32,6 +34,26 @@ class _CategoryViewState extends State<CategoryView> {
           ? 72
           : MediaQuery.of(context).size.width * 0.16;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedImage = Image.asset(
+      widget.category.selectedImageUri,
+    );
+    unselectedImage = Image.asset(
+      widget.category.unselectedImageUri,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(selectedImage.image, context);
+    precacheImage(unselectedImage.image, context);
   }
 
   @override
