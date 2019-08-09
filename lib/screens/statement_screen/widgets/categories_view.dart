@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
 
-class CategoriesView extends StatelessWidget {
+class CategoriesView extends StatefulWidget {
   /// Creates a row with the categories.
   ///
   /// The [categories] argument must not be null.
@@ -12,12 +12,32 @@ class CategoriesView extends StatelessWidget {
   final List<CategoryIcon> categories;
 
   @override
+  _CategoriesViewState createState() => _CategoriesViewState();
+}
+
+class _CategoriesViewState extends State<CategoriesView> {
+  selectionStateChanged() {
+    if (widget.categories.every((category) => !category.selected)) {
+      setState(() {
+        widget.categories.forEach((category) => category.selected = true);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (widget.categories.every((category) => !category.selected)) {
+      setState(() {
+        widget.categories.forEach((category) => category.selected = true);
+      });
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: categories
+      children: widget.categories
           .map((category) => CategoryView(
                 category: category,
+                selectionStateChanged: selectionStateChanged,
               ))
           .toList(),
     );

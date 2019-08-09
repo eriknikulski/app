@@ -6,9 +6,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:never_have_i_ever/models/category_icon.dart';
 
 class CategoryView extends StatefulWidget {
-  CategoryView({this.category}) : assert(category != null);
+  CategoryView({this.category, this.selectionStateChanged})
+      : assert(category != null && selectionStateChanged != null);
 
   final CategoryIcon category;
+  final VoidCallback selectionStateChanged;
 
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -40,6 +42,7 @@ class _CategoryViewState extends State<CategoryView> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         setState(() => widget.category.selected = !widget.category.selected);
+        widget.selectionStateChanged();
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
