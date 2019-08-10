@@ -15,11 +15,15 @@ class Statement {
 
   factory Statement.fromJson(String string) {
     final jsonData = json.decode(string);
+    return Statement.fromMap(jsonData);
+  }
+  
+  factory Statement.fromMap(Map map) {
     return Statement(
-        uuid: jsonData['ID'],
-        text: jsonData['statement'],
+        uuid: map['ID'],
+        text: map['statement'],
         category: Category.values.firstWhere(
-            (e) => e.toString() == 'Category.${jsonData['category']}'));
+                (e) => e.toString() == 'Category.${map['category']}'));
   }
 
   @override
