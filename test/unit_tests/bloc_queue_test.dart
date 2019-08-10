@@ -1,3 +1,7 @@
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -12,6 +16,11 @@ import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 
+Statement next(Iterator<Statement> iterator) {
+  iterator.moveNext();
+  return iterator.current;
+}
+
 main() {
   defaultSetup();
   final client = MockClient();
@@ -21,42 +30,129 @@ main() {
       unselectedImageUri: 'images/mojito_gray.png',
       selected: true);
 
-  test('return statements not in queueu', () async {
-    // TODO: rewrite
-    final answer1 =
-        '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
-    final answer2 =
-        '{"ID":"ec2a37e7-da79-44dc-b292-a5c343c0eaa8","statement":"Never have I ever forgotten to buy a present.","category":"harmless"}';
-    var answer = answer1;
-    var prevAnswer = answer1;
-    var expectedResponse = Statement(
-      uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
-      text: 'Never have I ever told somebody that I love his/her body.',
-      category: Category.harmless,
-    );
+  test('return statements not in queue iii', () async {
+    Queue<String> apiResponse = Queue.from([
+      '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}',
+      '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}',
+      '{"ID":"ec2a37e7-da79-44dc-b292-a5c343c0eaa8","statement":"Never have I ever forgotten to buy a present.","category":"harmless"}',
+    ]);
 
-    // fetch first statement
-    bloc.fetchStatement([category]);
+    Iterable<Statement> statementIterable = Iterable.castFrom([
+      Statement(
+        uuid: null,
+        text: 'Tap to start playing',
+        category: null,
+      ),
+      Statement(
+        uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+        text: 'Never have I ever told somebody that I love his/her body.',
+        category: Category.harmless,
+      ),
+      Statement(
+        uuid: 'ec2a37e7-da79-44dc-b292-a5c343c0eaa8',
+        text: 'Never have I ever forgotten to buy a present.',
+        category: Category.harmless,
+      )
+    ]);
+    Iterator<Statement> expectedResponse = statementIterable.iterator;
 
     StatementApiProvider.client = client;
     when(client.get(
             'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
         .thenAnswer((_) async {
-      var realAnswer = prevAnswer;
-      prevAnswer = answer;
-      answer = answer2;
-      return http.Response(realAnswer, 200);
+      return http.Response(apiResponse.removeFirst(), 200);
     });
 
-    expectLater(bloc.statement, emits(expectedResponse)).then((e) {
-      expectedResponse = Statement(
-        uuid: 'ec2a37e7-da79-44dc-b292-a5c343c0eaa8',
-        text: 'Never have I ever forgotten to buy a present.',
+    expectLater(bloc.statement, emits(next(expectedResponse)));
+
+    bloc.statement.listen((data) => print(data));
+
+    await bloc.fetchStatement([category]);
+    await bloc.fetchStatement([category]);
+    await bloc.fetchStatement([category]);
+
+    // clean up
+    bloc.dispose();
+  });
+
+  test('max api calls', () async {
+    final answer =
+        '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
+    Iterable<Statement> statementIterable = Iterable.castFrom([
+      Statement(
+        uuid: null,
+        text: 'Tap to start playing',
+        category: null,
+      ),
+      Statement(
+        uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+        text: 'Never have I ever told somebody that I love his/her body.',
         category: Category.harmless,
-      );
+      ),
+      Statement(
+        uuid: null,
+        text: 'Please try again',
+        category: null,
+      )
+    ]);
+    Iterator<Statement> expectedResults = statementIterable.iterator;
+
+    StatementApiProvider.client = client;
+    when(client.get(
+            'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+        .thenAnswer((_) async {
+      return http.Response(answer, 200);
     });
 
-    bloc.fetchStatement([category]);
-    bloc.fetchStatement([category]);
+    expectLater(bloc.statement, emits(next(expectedResults)));
+
+    await bloc.fetchStatement([category]);
+    await bloc.fetchStatement([category]);
+    await bloc.fetchStatement([category]);
+
+    // clean up
+    bloc.dispose();
+  });
+
+  test('full statement queue', () async {
+    Queue<Statement> statements;
+    await File('test/resources/responses.json')
+        .readAsString()
+        .then((String contents) => json.decode(contents))
+        .then((contents) {
+      statements = Queue<Statement>.from(
+          contents.map((element) => Statement.fromMap(element)));
+    });
+    Statement first = statements.first;
+
+    StatementApiProvider.client = client;
+    when(client.get(
+            'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+        .thenAnswer((_) async {
+      var statement;
+      if (statements.isNotEmpty) {
+        statement = statements.removeFirst();
+      } else {
+        statement = first;
+      }
+
+      return http.Response(
+          '{"ID":"${statement.uuid}",'
+          '"statement":"${statement.text}",'
+          '"category":"'
+          '${statement.category.toString().substring(statement.category.toString().indexOf('.') + 1)}"}',
+          200);
+    });
+
+    // The limit needs to be 51 because the first id removed on a full queue is null from the call to action statement.
+    for (var i = 0; i <= 51; i++) {
+      await bloc.fetchStatement([category]);
+    }
+
+    expectLater(bloc.statement, emits(first));
+    await bloc.fetchStatement([category]);
+
+    // clean up
+    bloc.dispose();
   });
 }
