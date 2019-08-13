@@ -43,10 +43,37 @@ class _StatementContainerViewState extends State<StatementContainerView> {
             statement: snapshot.data,
           );
         }
-        bloc.fetchStatement(categories);
+        bloc.goForward(categories);
         return CircularProgressIndicator();
       },
     );
+  }
+
+  List<Widget> buildGestureDetector(double width) {
+    return [
+      Positioned(
+        top: 0,
+        bottom: 0,
+        left: 0,
+        child: GestureDetector(
+            onTap: () => bloc.goBackward(),
+            child: Container(
+              width: width,
+              color: Colors.transparent,
+            )),
+      ),
+      Positioned(
+        top: 0,
+        right: 0,
+        bottom: 0,
+        child: GestureDetector(
+            onTap: () => bloc.goForward(categories),
+            child: Container(
+              width: width,
+              color: Colors.transparent,
+            )),
+      ),
+    ];
   }
 
   @override
@@ -57,29 +84,52 @@ class _StatementContainerViewState extends State<StatementContainerView> {
 
   @override
   Widget build(BuildContext context) {
+    bool swipes = false;
+
     return GestureDetector(
-      onTap: () => bloc.fetchStatement(categories),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CategoriesView(categories: categories),
-                    buildStatementView(context),
-                  ],
+      onPanUpdate: (details) {
+        if (details.delta.dx > 0 && !swipes) {
+          bloc.goBackward();
+        }
+
+        if (details.delta.dx < 0 && !swipes) {
+          bloc.goForward(categories);
+        }
+        swipes = true;
+      },
+      onPanEnd: (details) {
+        swipes = false;
+      },
+      child: Stack(children: <Widget>[
+        ...buildGestureDetector(MediaQuery.of(context).size.width / 2),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CategoriesView(categories: categories),
+                      Container(
+                        width: double.infinity,
+                        child: Stack(children: [
+                          Center(child: buildStatementView(context)),
+                          ...buildGestureDetector(
+                              MediaQuery.of(context).size.width / 2),
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
+            )
+          ],
+        ),
+      ]),
     );
   }
 }

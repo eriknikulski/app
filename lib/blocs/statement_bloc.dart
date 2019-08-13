@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:rxdart/rxdart.dart';
@@ -13,17 +12,18 @@ StatementBloc _bloc;
 
 class StatementBloc {
   final _statementFetcher = PublishSubject<Statement>();
-  final pastStatements = Queue<String>();
+  final pastStatements = List<Statement>();
+  int currentIndex = -1;
 
   Observable<Statement> get statement => _statementFetcher.stream;
 
-  fetchStatement(List<CategoryIcon> categories) async {
+  _fetchStatement(List<CategoryIcon> categories) async {
     Statement statement;
     var tries = 0;
 
     if (pastStatements.isEmpty) {
       statement =
-          Statement(text: 'Tap to start playing', uuid: null, category: null);
+          Statement(text: 'Tap righ or swipe left to start playing', uuid: null, category: null);
     } else {
       try {
         while (tries < env.maxApiCallTries &&
@@ -59,13 +59,23 @@ class StatementBloc {
         }
       }
     }
+    return statement;
+  }
 
-    pastStatements.add(statement.uuid);
-    if (pastStatements.length > 50) {
-      pastStatements.removeFirst();
+  goForward(List<CategoryIcon> categories) async {
+    if (currentIndex == pastStatements.length - 1) {
+      var statement = await _bloc._fetchStatement(categories);
+      pastStatements.add(statement);
     }
+    currentIndex++;
+    _statementFetcher.sink.add(pastStatements[currentIndex]);
+  }
 
-    _statementFetcher.sink.add(statement);
+  goBackward() {
+    if (currentIndex != 0) {
+      currentIndex--;
+    }
+    _statementFetcher.sink.add(pastStatements[currentIndex]);
   }
 
   dispose() {

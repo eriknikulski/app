@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -13,6 +14,11 @@ import 'package:never_have_i_ever/services/statement_api_provider.dart';
 import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
+
+Statement next(Iterator<Statement> iterator) {
+  iterator.moveNext();
+  return iterator.current;
+}
 
 main() {
   defaultSetup();
@@ -37,25 +43,34 @@ main() {
       );
 
       // fetch first statement
-      bloc.fetchStatement([category]);
+      await bloc.goForward([category]);
 
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
       expectLater(bloc.statement, emits(expectedResponse));
-      bloc.fetchStatement([category]);
+      await bloc.goForward([category]);
+
+      // clean up
+      bloc.dispose();
     });
 
     test('statement at argument error', () async {
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
 
+      // fetch first statement
+      await bloc.goForward([]);
+
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
       expectLater(bloc.statement,
           emits(Statement(text: 'Internal error', uuid: null, category: null)));
-      bloc.fetchStatement([]);
+      await bloc.goForward([]);
+
+      // clean up
+      bloc.dispose();
     });
 
     test('statement at no category selected', () async {
@@ -67,6 +82,9 @@ main() {
           unselectedImageUri: 'images/mojito_gray.png',
           selected: false);
 
+      // fetch first statement
+      await bloc.goForward([]);
+
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
@@ -76,12 +94,18 @@ main() {
               text: 'Please select a category to continue',
               uuid: null,
               category: null)));
-      bloc.fetchStatement([category]);
+      await bloc.goForward([category]);
+
+      // clean up
+      bloc.dispose();
     });
 
     test('statement at bad status code', () async {
       final answer =
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
+
+      // fetch first statement
+      await bloc.goForward([]);
 
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
@@ -90,10 +114,16 @@ main() {
           bloc.statement,
           emits(Statement(
               text: 'Bad server response', uuid: null, category: null)));
-      bloc.fetchStatement([category]);
+      await bloc.goForward([category]);
+
+      // clean up
+      bloc.dispose();
     });
 
     test('statement at socket exception', () async {
+      // fetch first statement
+      await bloc.goForward([]);
+
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async =>
@@ -102,7 +132,82 @@ main() {
           bloc.statement,
           emits(Statement(
               text: 'No internet connection', uuid: null, category: null)));
-      bloc.fetchStatement([category]);
+      await bloc.goForward([category]);
+
+      // clean up
+      bloc.dispose();
+    });
+  });
+
+  group('go backwards', () {
+    test('go backwards on call to action', () async {
+      expectLater(bloc.statement,
+          emits(Statement(text: 'Tap righ or swipe left to start playing', uuid: null, category: null)));
+      await bloc.goForward([category]);
+      await bloc.goBackward();
+
+      // clean up
+      bloc.dispose();
+    });
+
+    test('move around', () async {
+      Queue<String> apiResponse = Queue.from([
+        '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}',
+        '{"ID":"ec2a37e7-da79-44dc-b292-a5c343c0eaa8","statement":"Never have I ever forgotten to buy a present.","category":"harmless"}',
+      ]);
+      Iterable<Statement> statementIterable = Iterable.castFrom([
+        Statement(
+          uuid: null,
+          text: 'Tap righ or swipe left to start playing',
+          category: null,
+        ),
+        Statement(
+          uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+          text: 'Never have I ever told somebody that I love his/her body.',
+          category: Category.harmless,
+        ),
+        Statement(
+          uuid: 'ec2a37e7-da79-44dc-b292-a5c343c0eaa8',
+          text: 'Never have I ever forgotten to buy a present.',
+          category: Category.harmless,
+        ),
+        Statement(
+          uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+          text: 'Never have I ever told somebody that I love his/her body.',
+          category: Category.harmless,
+        ),
+        Statement(
+          uuid: 'ec2a37e7-da79-44dc-b292-a5c343c0eaa8',
+          text: 'Never have I ever forgotten to buy a present.',
+          category: Category.harmless,
+        ),
+        Statement(
+          uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+          text: 'Never have I ever told somebody that I love his/her body.',
+          category: Category.harmless,
+        ),
+        Statement(
+          uuid: null,
+          text: 'Tap righ or swipe left to start playing',
+          category: null,
+        ),
+      ]);
+      Iterator<Statement> expectedResponse = statementIterable.iterator;
+
+      when(client.get(
+              'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+          .thenAnswer(
+              (_) async => http.Response(apiResponse.removeFirst(), 200));
+
+      expectLater(bloc.statement, emits(next(expectedResponse)));
+
+      await bloc.goForward([category]);
+      await bloc.goForward([category]);
+      await bloc.goForward([category]);
+      await bloc.goBackward();
+      await bloc.goForward([category]);
+      await bloc.goBackward();
+      await bloc.goBackward();
     });
   });
 }

@@ -55,5 +55,19 @@ main() {
       await tester.tap(find.byType(CategoryView).first);
       expect(categoryObject.category.selected, isFalse);
     });
+
+    testWidgets('portait view', (WidgetTester tester) async {
+      Widget categoryView = MediaQuery(
+          data: MediaQueryData().copyWith(
+            size: Size(360.0, 640.0)
+          ),
+          child: MaterialApp(
+            home: CategoryView(
+              category: category,
+              selectionStateChanged: () {},
+            ),
+          ));
+      await tester.pumpWidget(categoryView);
+    });
   });
 }

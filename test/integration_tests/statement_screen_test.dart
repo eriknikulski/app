@@ -37,7 +37,7 @@ main() {
       await tester.pumpWidget(statementScreen);
       await tester.pumpAndSettle();
 
-      expect(find.text('Tap to start playing'), findsOneWidget);
+      expect(find.text('Tap righ or swipe left to start playing'), findsOneWidget);
     });
 
     testWidgets('next statement after tap', (WidgetTester tester) async {
