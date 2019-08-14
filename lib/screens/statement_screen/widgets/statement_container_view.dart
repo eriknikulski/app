@@ -49,7 +49,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     );
   }
 
-  List<Widget> buildGestureDetector(double width) {
+  List<Widget> buildGestureDetector() {
     return [
       Positioned(
         top: 0,
@@ -58,7 +58,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         child: GestureDetector(
             onTap: () => bloc.goBackward(),
             child: Container(
-              width: width,
+              width: MediaQuery.of(context).size.width / 2,
               color: Colors.transparent,
             )),
       ),
@@ -69,7 +69,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         child: GestureDetector(
             onTap: () => bloc.goForward(categories),
             child: Container(
-              width: width,
+              width: MediaQuery.of(context).size.width / 2,
               color: Colors.transparent,
             )),
       ),
@@ -101,7 +101,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         swipes = false;
       },
       child: Stack(children: <Widget>[
-        ...buildGestureDetector(MediaQuery.of(context).size.width / 2),
+        ...buildGestureDetector(),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -118,8 +118,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
                         width: double.infinity,
                         child: Stack(children: [
                           Center(child: buildStatementView(context)),
-                          ...buildGestureDetector(
-                              MediaQuery.of(context).size.width / 2),
+                          ...buildGestureDetector(),
                         ]),
                       ),
                     ],
