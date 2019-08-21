@@ -1,9 +1,9 @@
 language: dart
-dist: xenial
+sudo: false
 addons:
   apt:
     packages:
-      - lib32stdc++6
+      - libstdc++6
 install:
   - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
