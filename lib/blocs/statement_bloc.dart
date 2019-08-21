@@ -27,7 +27,7 @@ class StatementBloc {
     } else {
       try {
         while (tries < env.maxApiCallTries &&
-            (statement == null || pastStatements.contains(statement.uuid))) {
+            (statement == null || pastStatements.contains(statement))) {
           tries++;
           statement = await StatementApiProvider.fetchStatement(categories);
         }
