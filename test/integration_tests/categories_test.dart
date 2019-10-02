@@ -14,18 +14,18 @@ main() {
   final List<CategoryIcon> categories = [
     CategoryIcon(
         name: Category.harmless,
-        selectedImageUri: 'images/mojito.png',
-        unselectedImageUri: 'images/mojito_gray.png',
+        selectedImageUri: 'images/mojito.svg',
+        unselectedImageUri: 'images/mojito_gray.svg',
         selected: true),
     CategoryIcon(
         name: Category.delicate,
-        selectedImageUri: 'images/beer.png',
-        unselectedImageUri: 'images/beer_gray.png',
+        selectedImageUri: 'images/beer.svg',
+        unselectedImageUri: 'images/beer_gray.svg',
         selected: false),
     CategoryIcon(
         name: Category.offensive,
-        selectedImageUri: 'images/cocktail.png',
-        unselectedImageUri: 'images/cocktail_gray.png',
+        selectedImageUri: 'images/cocktail.svg',
+        unselectedImageUri: 'images/cocktail_gray.svg',
         selected: false),
   ];
 

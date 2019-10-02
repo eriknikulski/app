@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:never_have_i_ever/models/category_icon.dart';
 
 class CategoryView extends StatefulWidget {
@@ -15,8 +17,6 @@ class CategoryView extends StatefulWidget {
 }
 
 class _CategoryViewState extends State<CategoryView> {
-  Image selectedImage;
-  Image unselectedImage;
   double width = 65;
   double height;
 
@@ -35,26 +35,6 @@ class _CategoryViewState extends State<CategoryView> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    selectedImage = Image.asset(
-      widget.category.selectedImageUri,
-    );
-    unselectedImage = Image.asset(
-      widget.category.unselectedImageUri,
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    precacheImage(selectedImage.image, context);
-    precacheImage(unselectedImage.image, context);
-  }
-
-  @override
   Widget build(BuildContext context) {
     setCategoryHeight(context);
 
@@ -69,7 +49,7 @@ class _CategoryViewState extends State<CategoryView> {
         child: SizedBox(
           child: Column(
             children: <Widget>[
-              Image.asset(
+              SvgPicture.asset(
                 widget.category.selected
                     ? widget.category.selectedImageUri
                     : widget.category.unselectedImageUri,

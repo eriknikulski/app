@@ -12,27 +12,27 @@ main() {
     test('right attributes', () {
       CategoryIcon categoryIcon = CategoryIcon(
           name: Category.harmless,
-          selectedImageUri: 'dummy_selected.png',
-          unselectedImageUri: 'dummy_unselected.png',
+          selectedImageUri: 'dummy_selected.svg',
+          unselectedImageUri: 'dummy_unselected.svg',
           selected: false);
 
       assert(categoryIcon.name == Category.harmless);
-      assert(categoryIcon.selectedImageUri == 'dummy_selected.png');
-      assert(categoryIcon.unselectedImageUri == 'dummy_unselected.png');
+      assert(categoryIcon.selectedImageUri == 'dummy_selected.svg');
+      assert(categoryIcon.unselectedImageUri == 'dummy_unselected.svg');
       assert(categoryIcon.selected == false);
     });
 
     test('category icon toString', () {
       CategoryIcon categoryIcon = CategoryIcon(
           name: Category.harmless,
-          selectedImageUri: 'dummy_selected.png',
-          unselectedImageUri: 'dummy_unselected.png',
+          selectedImageUri: 'dummy_selected.svg',
+          unselectedImageUri: 'dummy_unselected.svg',
           selected: false);
 
       assert(categoryIcon.toString() == 'Category: {'
           'name: Category.harmless, '
-          'selectedImageUri: dummy_selected.png, '
-          'unselectedImageUri: dummy_unselected.png, '
+          'selectedImageUri: dummy_selected.svg, '
+          'unselectedImageUri: dummy_unselected.svg, '
           'selected: false'
           '}');
     });

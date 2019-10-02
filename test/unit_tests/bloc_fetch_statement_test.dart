@@ -28,8 +28,8 @@ main() {
 
   CategoryIcon category = CategoryIcon(
       name: Category.harmless,
-      selectedImageUri: 'images/mojito.png',
-      unselectedImageUri: 'images/mojito_gray.png',
+      selectedImageUri: 'images/mojito.svg',
+      unselectedImageUri: 'images/mojito_gray.svg',
       selected: true);
 
   group('bloc fetch statement', () {
@@ -78,8 +78,8 @@ main() {
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
       final category = CategoryIcon(
           name: Category.harmless,
-          selectedImageUri: 'images/mojito.png',
-          unselectedImageUri: 'images/mojito_gray.png',
+          selectedImageUri: 'images/mojito.svg',
+          unselectedImageUri: 'images/mojito_gray.svg',
           selected: false);
 
       // fetch first statement

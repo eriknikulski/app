@@ -8,8 +8,8 @@ import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view
 main() {
   final category = CategoryIcon(
       name: Category.harmless,
-      selectedImageUri: 'images/mojito.png',
-      unselectedImageUri: 'images/mojito_gray.png',
+      selectedImageUri: 'images/mojito.svg',
+      unselectedImageUri: 'images/mojito_gray.svg',
       selected: true);
 
   group('category view widget', () {
