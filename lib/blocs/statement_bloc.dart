@@ -23,7 +23,7 @@ class StatementBloc {
 
     if (pastStatements.isEmpty) {
       statement =
-          Statement(text: 'Tap righ or swipe left to start playing', uuid: null, category: null);
+          Statement(text: 'Tap to start playing', uuid: null, category: null);
     } else {
       try {
         while (tries < env.maxApiCallTries &&
@@ -72,9 +72,12 @@ class StatementBloc {
   }
 
   goBackward() {
-    if (currentIndex != 0) {
+    if (currentIndex != 0 &&
+        pastStatements.length - currentIndex <= 1 &&
+        pastStatements[currentIndex - 1]?.uuid != null) {
       currentIndex--;
     }
+
     _statementFetcher.sink.add(pastStatements[currentIndex]);
   }
 

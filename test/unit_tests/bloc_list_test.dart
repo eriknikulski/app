@@ -38,7 +38,7 @@ main() {
     Iterable<Statement> statementIterable = Iterable.castFrom([
       Statement(
         uuid: null,
-        text: 'Tap righ or swipe left to start playing',
+        text: 'Tap to start playing',
         category: null,
       ),
       Statement(
@@ -61,7 +61,8 @@ main() {
       return http.Response(apiResponse.removeFirst(), 200);
     });
 
-    expectLater(bloc.statement, emits(next(expectedResponse)));
+    bloc.statement
+        .listen((data) => expect(data == next(expectedResponse), isTrue));
 
     await bloc.goForward([category]);
     await bloc.goForward([category]);
@@ -77,7 +78,7 @@ main() {
     Iterable<Statement> statementIterable = Iterable.castFrom([
       Statement(
         uuid: null,
-        text: 'Tap righ or swipe left to start playing',
+        text: 'Tap to start playing',
         category: null,
       ),
       Statement(
@@ -91,7 +92,7 @@ main() {
         category: null,
       )
     ]);
-    Iterator<Statement> expectedResults = statementIterable.iterator;
+    Iterator<Statement> expectedResponse = statementIterable.iterator;
 
     StatementApiProvider.client = client;
     when(client.get(
@@ -100,7 +101,8 @@ main() {
       return http.Response(answer, 200);
     });
 
-    expectLater(bloc.statement, emits(next(expectedResults)));
+    bloc.statement
+        .listen((data) => expect(data == next(expectedResponse), isTrue));
 
     await bloc.goForward([category]);
     await bloc.goForward([category]);

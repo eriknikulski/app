@@ -48,7 +48,7 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
-      expectLater(bloc.statement, emits(expectedResponse));
+      bloc.statement.listen((data) => expect(data == expectedResponse, isTrue));
       await bloc.goForward([category]);
 
       // clean up
@@ -65,8 +65,9 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
-      expectLater(bloc.statement,
-          emits(Statement(text: 'Internal error', uuid: null, category: null)));
+      bloc.statement.listen((data) => expect(
+          data == Statement(text: 'Internal error', uuid: null, category: null),
+          isTrue));
       await bloc.goForward([]);
 
       // clean up
@@ -88,12 +89,13 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
-      expectLater(
-          bloc.statement,
-          emits(Statement(
-              text: 'Please select a category to continue',
-              uuid: null,
-              category: null)));
+      bloc.statement.listen((data) => expect(
+          data ==
+              Statement(
+                  text: 'Please select a category to continue',
+                  uuid: null,
+                  category: null),
+          isTrue));
       await bloc.goForward([category]);
 
       // clean up
@@ -110,10 +112,11 @@ main() {
       when(client.get(
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 400));
-      expectLater(
-          bloc.statement,
-          emits(Statement(
-              text: 'Bad server response', uuid: null, category: null)));
+      bloc.statement.listen((data) => expect(
+          data ==
+              Statement(
+                  text: 'Bad server response', uuid: null, category: null),
+          isTrue));
       await bloc.goForward([category]);
 
       // clean up
@@ -128,10 +131,11 @@ main() {
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer((_) async =>
               throw SocketException('SocketException: Failed host lookup:'));
-      expectLater(
-          bloc.statement,
-          emits(Statement(
-              text: 'No internet connection', uuid: null, category: null)));
+      bloc.statement.listen((data) => expect(
+          data ==
+              Statement(
+                  text: 'No internet connection', uuid: null, category: null),
+          isTrue));
       await bloc.goForward([category]);
 
       // clean up
@@ -141,8 +145,11 @@ main() {
 
   group('go backwards', () {
     test('go backwards on call to action', () async {
-      expectLater(bloc.statement,
-          emits(Statement(text: 'Tap righ or swipe left to start playing', uuid: null, category: null)));
+      bloc.statement.listen((data) => expect(
+          data ==
+              Statement(
+                  text: 'Tap to start playing', uuid: null, category: null),
+          isTrue));
       await bloc.goForward([category]);
       await bloc.goBackward();
 
@@ -158,7 +165,7 @@ main() {
       Iterable<Statement> statementIterable = Iterable.castFrom([
         Statement(
           uuid: null,
-          text: 'Tap righ or swipe left to start playing',
+          text: 'Tap to start playing',
           category: null,
         ),
         Statement(
@@ -187,9 +194,9 @@ main() {
           category: Category.harmless,
         ),
         Statement(
-          uuid: null,
-          text: 'Tap righ or swipe left to start playing',
-          category: null,
+          uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+          text: 'Never have I ever told somebody that I love his/her body.',
+          category: Category.harmless,
         ),
       ]);
       Iterator<Statement> expectedResponse = statementIterable.iterator;
@@ -198,8 +205,8 @@ main() {
               'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
           .thenAnswer(
               (_) async => http.Response(apiResponse.removeFirst(), 200));
-
-      expectLater(bloc.statement, emits(next(expectedResponse)));
+      bloc.statement
+          .listen((data) => expect(data == next(expectedResponse), isTrue));
 
       await bloc.goForward([category]);
       await bloc.goForward([category]);
