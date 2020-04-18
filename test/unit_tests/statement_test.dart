@@ -27,7 +27,7 @@ main() {
           category: Category.harmless);
 
       assert(statement.toString() ==
-          'Statement: {uuid: myuuid, text: This is a test statement., category: Category.harmless}');
+          'Statement { uuid: myuuid, text: This is a test statement., category: Category.harmless }');
     });
 
     test('statement comparison', () {

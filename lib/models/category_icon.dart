@@ -16,11 +16,11 @@ class CategoryIcon {
 
   @override
   String toString() {
-    return 'Category: {'
+    return 'Category { '
         'name: $name, '
         'selectedImageUri: $selectedImageUri, '
         'unselectedImageUri: $unselectedImageUri, '
         'selected: $selected'
-        '}';
+        ' }';
   }
 }

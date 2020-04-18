@@ -29,12 +29,13 @@ main() {
           unselectedImageUri: 'dummy_unselected.svg',
           selected: false);
 
-      assert(categoryIcon.toString() == 'Category: {'
-          'name: Category.harmless, '
-          'selectedImageUri: dummy_selected.svg, '
-          'unselectedImageUri: dummy_unselected.svg, '
-          'selected: false'
-          '}');
+      assert(categoryIcon.toString() ==
+          'Category { '
+              'name: Category.harmless, '
+              'selectedImageUri: dummy_selected.svg, '
+              'unselectedImageUri: dummy_unselected.svg, '
+              'selected: false'
+              ' }');
     });
   });
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:never_have_i_ever/blocs/statement_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:never_have_i_ever/blocs/app/app_state.dart';
+import 'package:never_have_i_ever/blocs/app/app_event.dart';
+import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
+
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/category_icon.dart';
-import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
 
@@ -33,18 +36,14 @@ class _StatementContainerViewState extends State<StatementContainerView> {
   ];
 
   Widget buildStatementView(BuildContext context) {
-    return StreamBuilder(
-      stream: bloc.statement,
-      builder: (BuildContext context, AsyncSnapshot<Statement> snapshot) {
-        if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
-        } else if (snapshot.hasData) {
-          return StatementView(
-            statement: snapshot.data,
-          );
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (context, state) {
+        if (state is Uninitialized) {
+          BlocProvider.of<AppBloc>(context).add(Initialize(categories));
         }
-        bloc.goForward(categories);
-        return CircularProgressIndicator();
+        return StatementView(
+          statement: state.statement,
+        );
       },
     );
   }
@@ -56,7 +55,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         bottom: 0,
         left: 0,
         child: GestureDetector(
-            onTap: () => bloc.goBackward(),
+            onTap: () => BlocProvider.of<AppBloc>(context).add(GoBackward()),
             child: Container(
               width: MediaQuery.of(context).size.width / 2,
               color: Colors.transparent,
@@ -67,7 +66,8 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         right: 0,
         bottom: 0,
         child: GestureDetector(
-            onTap: () => bloc.goForward(categories),
+            onTap: () =>
+                BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
             child: Container(
               width: MediaQuery.of(context).size.width / 2,
               color: Colors.transparent,
@@ -77,23 +77,17 @@ class _StatementContainerViewState extends State<StatementContainerView> {
   }
 
   @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     bool swipes = false;
 
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0 && !swipes) {
-          bloc.goBackward();
+          BlocProvider.of<AppBloc>(context).add(GoBackward());
         }
 
         if (details.delta.dx < 0 && !swipes) {
-          bloc.goForward(categories);
+          BlocProvider.of<AppBloc>(context).add(GoForward(categories));
         }
         swipes = true;
       },
