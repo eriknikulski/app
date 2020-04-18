@@ -22,6 +22,8 @@ defaultSetup() async {
         Category.fromMap(config['categories']['harmless']),
         Category.fromMap(config['categories']['delicate']),
         Category.fromMap(config['categories']['offensive'])
-      ]);
+      ],
+      maxPrefetchCalls: config['maxPrefetchCalls'],
+      prefetchWaitTime: config['prefetchWaitTime'],);
   assert(env != null);
 }

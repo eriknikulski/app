@@ -9,6 +9,7 @@ import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
+import '../../env.dart';
 import 'app_event.dart';
 import 'app_state.dart';
 
@@ -19,6 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   List<Statement> statements = [];
   int currentStatementIndex = -1;
   List<Category> categories;
+  bool goForward = false;
 
   AppBloc({@required this.statementBloc}) {
     statementSubscription = statementBloc.listen((state) {
@@ -43,6 +45,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield* _mapGoForwardToForward(event);
     } else if (event is AddStatement) {
       _mapAddStatement(event);
+    } else if (event is ChangeCategory) {
+      _mapChangeCategory(event);
     }
   }
 
@@ -54,17 +58,24 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<Initialized> _mapInitializeToInitialized(Initialize event) async* {
     statementBloc.add(LoadStatement(event.categories));
     yield Initialized();
+
+    new Timer.periodic(Duration(seconds: env.prefetchWaitTime), (Timer t) {
+      if ((statements.length - 1 - currentStatementIndex) <
+          env.maxPrefetchCalls) {
+        statementBloc.add(LoadStatement(event.categories));
+      }
+    });
   }
 
   Stream<Forward> _mapGoForwardToForward(GoForward event) async* {
     if (statements.length - 1 == currentStatementIndex) {
       categories = event.categories;
+      goForward = true;
       statementBloc.add(LoadStatement(event.categories));
       return;
     }
     var statement = statements[++currentStatementIndex];
     yield Forward(statement);
-    categories = null;
   }
 
   void _mapAddStatement(AddStatement event) {
@@ -74,9 +85,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       return;
     }
     statements.add(newStatement);
-    if (state is Forward || state is AppException) {
+    if (goForward || state is AppException) {
+      goForward = false;
       add(GoForward(categories));
     }
+  }
+
+  void _mapChangeCategory(ChangeCategory event) {
+    categories = event.categories;
+    statements.removeRange(currentStatementIndex + 1, statements.length);
   }
 
   @override

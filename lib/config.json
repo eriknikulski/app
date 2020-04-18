@@ -1,9 +1,9 @@
 {
   "dev": {
-    "baseUrl": "https://api.neverhaveiever.io/v1"
+    "baseUrl": "https://api.nhie.io/v1"
   },
   "prod": {
-    "baseUrl": "https://api.neverhaveiever.io/v1"
+    "baseUrl": "https://api.nhie.io/v1"
   },
   "categories": {
     "harmless": {
@@ -34,5 +34,7 @@
     "ID": null,
     "statement": "Statement couldn't be loaded",
     "category": "internal"
-  }
+  },
+  "maxPrefetchCalls": 5,
+  "prefetchWaitTime": 1
 }

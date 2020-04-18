@@ -19,7 +19,7 @@ class Initialize extends AppEvent {
   List<Object> get props => [categories];
 
   @override
-  String toString() => 'Initialize { categorie_icons: $categories }';
+  String toString() => 'Initialize { categorie: $categories }';
 }
 
 class GoForward extends AppEvent {
@@ -31,7 +31,7 @@ class GoForward extends AppEvent {
   List<Object> get props => [categories];
 
   @override
-  String toString() => 'GoForward { categorie_icons: $categories }';
+  String toString() => 'GoForward { categorie: $categories }';
 }
 
 class AddStatement extends AppEvent {
@@ -44,6 +44,18 @@ class AddStatement extends AppEvent {
 
   @override
   String toString() => 'AddStatement { statement: $statement }';
+}
+
+class ChangeCategory extends AppEvent {
+  final List<Category> categories;
+
+  const ChangeCategory(this.categories) : assert(categories.length > 0);
+
+  @override
+  List<Object> get props => [categories];
+
+  @override
+  String toString() => 'ChangeCategory { categorie: $categories }';
 }
 
 class HandleException extends AppEvent {
