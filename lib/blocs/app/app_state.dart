@@ -1,14 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
 abstract class AppState extends Equatable {
-  final statement;
-
-  // TODO: fetch default statement from config
-  const AppState(
-      {this.statement = const Statement(
-          text: 'Tap to start playing', uuid: null, category: null)});
+  final Statement statement = env.defaultStatement;
 
   @override
   List<Object> get props => [];
@@ -21,7 +17,7 @@ class Initialized extends AppState {}
 class Forward extends AppState {
   final Statement statement;
 
-  const Forward(this.statement);
+  Forward(this.statement);
 
   @override
   List<Object> get props => [statement];
@@ -34,14 +30,9 @@ class Forward extends AppState {
 
 class AppException extends AppState {
   final Exception exception;
-  final Statement statement;
+  final Statement statement = env.errorStatement;
 
-  const AppException(this.exception,
-      {this.statement = const Statement(
-          text: 'No internet connection',
-          uuid: null,
-          category:
-              null)}); // TODO: might change this to a more general message i.e. "Statement couldn't be loaded"
+  AppException(this.exception);
 
   @override
   List<Object> get props => [exception];

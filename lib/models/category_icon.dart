@@ -14,6 +14,15 @@ class CategoryIcon {
       @required this.unselectedImageUri,
       @required this.selected});
 
+  factory CategoryIcon.fromMap(Map map) {
+    return CategoryIcon(
+        name: Category.values
+            .firstWhere((e) => e.toString() == 'Category.${map['name']}'),
+        selectedImageUri: map['selectedImageUri'],
+        unselectedImageUri: map['unselectedImageUri'],
+        selected: map['selected']);
+  }
+
   @override
   String toString() {
     return 'Category { '

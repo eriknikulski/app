@@ -1,0 +1,38 @@
+{
+  "dev": {
+    "baseUrl": "https://api.neverhaveiever.io/v1"
+  },
+  "prod": {
+    "baseUrl": "https://api.neverhaveiever.io/v1"
+  },
+  "categories": {
+    "harmless": {
+      "name": "harmless",
+      "selected": true,
+      "selectedImageUri": "assets/categories/mojito.svg",
+      "unselectedImageUri": "assets/categories/mojito_gray.svg"
+    },
+    "delicate": {
+      "name": "delicate",
+      "selected": true,
+      "selectedImageUri": "assets/categories/beer.svg",
+      "unselectedImageUri": "assets/categories/beer_gray.svg"
+    },
+    "offensive": {
+      "name": "offensive",
+      "selected": true,
+      "selectedImageUri": "assets/categories/cocktail.svg",
+      "unselectedImageUri": "assets/categories/cocktail_gray.svg"
+    }
+  },
+  "defaultStatement": {
+    "ID": null,
+    "statement": "Tap to start playing",
+    "category": "internal"
+  },
+  "errorStatement": {
+    "ID": null,
+    "statement": "Statement couldn't be loaded",
+    "category": "internal"
+  }
+}
