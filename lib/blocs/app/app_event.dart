@@ -34,7 +34,6 @@ class GoForward extends AppEvent {
   String toString() => 'GoForward { categorie_icons: $categories }';
 }
 
-
 class AddStatement extends AppEvent {
   final Statement statement;
 

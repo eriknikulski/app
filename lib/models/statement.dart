@@ -22,8 +22,8 @@ class Statement extends Equatable {
     return Statement(
         uuid: map['ID'],
         text: map['statement'],
-        category: CategoryName.values
-            .firstWhere((e) => e.toString() == 'CategoryName.${map['category']}'));
+        category: CategoryName.values.firstWhere(
+            (e) => e.toString() == 'CategoryName.${map['category']}'));
   }
 
   Map<String, dynamic> toJson() {

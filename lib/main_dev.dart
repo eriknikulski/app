@@ -1,8 +1,9 @@
 import 'dart:convert' show json;
 
-import 'package:flutter/material.dart' show runApp, WidgetsFlutterBinding;
+import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart'
+    show SystemChrome, SystemUiOverlayStyle, rootBundle;
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocSupervisor;
 
 import 'blocs/simple_bloc_delegate.dart';
@@ -10,9 +11,14 @@ import 'env.dart';
 import 'models/category.dart';
 import 'models/statement.dart';
 import 'screens/app.dart';
+import 'theme/style.dart';
 
 Future<void> main() async {
   debugPaintSizeEnabled = true;
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+    systemNavigationBarColor: appTheme().scaffoldBackgroundColor,
+    statusBarColor: appTheme().scaffoldBackgroundColor,
+  ));
 
   WidgetsFlutterBinding.ensureInitialized();
 

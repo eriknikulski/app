@@ -1,15 +1,20 @@
 import 'dart:convert' show json;
 
-import 'package:flutter/material.dart' show runApp, WidgetsFlutterBinding;
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
+import 'package:flutter/services.dart'
+    show SystemChrome, SystemUiOverlayStyle, rootBundle;
 
 import 'env.dart';
 import 'models/category.dart';
 import 'models/statement.dart';
 import 'screens/app.dart';
-
+import 'theme/style.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+    systemNavigationBarColor: appTheme().scaffoldBackgroundColor,
+    statusBarColor: appTheme().scaffoldBackgroundColor,
+  ));
   WidgetsFlutterBinding.ensureInitialized();
 
   String raw = await rootBundle.loadString('lib/config.json');

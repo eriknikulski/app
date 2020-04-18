@@ -34,18 +34,18 @@ class _StatementContainerViewState extends State<StatementContainerView> {
   }
 
   Widget buildGestureDetector() {
-    return
-      Positioned(
-        top: 0,
-        bottom: 0,
-        left: 0,
-        child: GestureDetector(
-            onTap: () => BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.transparent,
-            )),
-      );
+    return Positioned(
+      top: 0,
+      bottom: 0,
+      left: 0,
+      child: GestureDetector(
+          onTap: () =>
+              BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.transparent,
+          )),
+    );
   }
 
   @override
