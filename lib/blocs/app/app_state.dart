@@ -32,20 +32,6 @@ class Forward extends AppState {
   }
 }
 
-class Backward extends AppState {
-  final Statement statement;
-
-  const Backward(this.statement);
-
-  @override
-  List<Object> get props => [statement];
-
-  @override
-  String toString() {
-    return 'Backward { statement: $statement }';
-  }
-}
-
 class AppException extends AppState {
   final Exception exception;
   final Statement statement;

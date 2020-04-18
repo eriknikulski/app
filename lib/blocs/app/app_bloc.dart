@@ -40,8 +40,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield* _mapInitializeToInitialized(event);
     } else if (event is GoForward) {
       yield* _mapGoForwardToForward(event);
-    } else if (event is GoBackward && state is Forward) {
-      yield* _mapGoBackwardToBackward(event);
     } else if (event is AddStatement) {
       _mapAddStatement(event);
     }
@@ -66,14 +64,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     var statement = statements[++currentStatementIndex];
     yield Forward(statement);
     categories = null;
-  }
-
-  Stream<Backward> _mapGoBackwardToBackward(GoBackward event) async* {
-    if (currentStatementIndex == 0) {
-      return;
-    }
-    var statement = statements[--currentStatementIndex];
-    yield Backward(statement);
   }
 
   void _mapAddStatement(AddStatement event) {

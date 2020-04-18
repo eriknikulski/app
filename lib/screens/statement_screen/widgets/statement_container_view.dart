@@ -48,32 +48,19 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     );
   }
 
-  List<Widget> buildGestureDetector() {
-    return [
+  Widget buildGestureDetector() {
+    return
       Positioned(
         top: 0,
         bottom: 0,
         left: 0,
         child: GestureDetector(
-            onTap: () => BlocProvider.of<AppBloc>(context).add(GoBackward()),
+            onTap: () => BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
             child: Container(
-              width: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery.of(context).size.width,
               color: Colors.transparent,
             )),
-      ),
-      Positioned(
-        top: 0,
-        right: 0,
-        bottom: 0,
-        child: GestureDetector(
-            onTap: () =>
-                BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
-            child: Container(
-              width: MediaQuery.of(context).size.width / 2,
-              color: Colors.transparent,
-            )),
-      ),
-    ];
+      );
   }
 
   @override
@@ -82,10 +69,6 @@ class _StatementContainerViewState extends State<StatementContainerView> {
 
     return GestureDetector(
       onPanUpdate: (details) {
-        if (details.delta.dx > 0 && !swipes) {
-          BlocProvider.of<AppBloc>(context).add(GoBackward());
-        }
-
         if (details.delta.dx < 0 && !swipes) {
           BlocProvider.of<AppBloc>(context).add(GoForward(categories));
         }
@@ -95,7 +78,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
         swipes = false;
       },
       child: Stack(children: <Widget>[
-        ...buildGestureDetector(),
+        buildGestureDetector(),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -112,7 +95,7 @@ class _StatementContainerViewState extends State<StatementContainerView> {
                         width: double.infinity,
                         child: Stack(children: [
                           Center(child: buildStatementView(context)),
-                          ...buildGestureDetector(),
+                          buildGestureDetector(),
                         ]),
                       ),
                     ],

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
@@ -33,7 +34,6 @@ class GoForward extends AppEvent {
   String toString() => 'GoForward { categorie_icons: $categories }';
 }
 
-class GoBackward extends AppEvent {}
 
 class AddStatement extends AppEvent {
   final Statement statement;
