@@ -27,7 +27,7 @@
   },
   "defaultStatement": {
     "ID": null,
-    "statement": "Tap to start playing",
+    "statement": "Tap to start",
     "category": "internal"
   },
   "errorStatement": {
