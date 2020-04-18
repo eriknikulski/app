@@ -8,7 +8,7 @@ import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
-import 'package:never_have_i_ever/models/category_icon.dart';
+import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
@@ -17,7 +17,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   StreamSubscription statementSubscription;
   List<Statement> statements = [];
   int currentStatementIndex = -1;
-  List<CategoryIcon> categories;
+  List<Category> categories;
 
   AppBloc({@required this.statementBloc}) {
     statementSubscription = statementBloc.listen((state) {

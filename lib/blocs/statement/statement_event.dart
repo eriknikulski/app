@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:never_have_i_ever/models/category_icon.dart';
+import 'package:never_have_i_ever/models/category.dart';
 
 abstract class StatementEvent extends Equatable {
   const StatementEvent();
@@ -10,7 +10,7 @@ abstract class StatementEvent extends Equatable {
 }
 
 class LoadStatement extends StatementEvent {
-  final List<CategoryIcon> categories;
+  final List<Category> categories;
 
   const LoadStatement(this.categories) : assert(categories.length > 0);
 

@@ -1,15 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show describeEnum;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:never_have_i_ever/models/category_icon.dart';
+import 'package:never_have_i_ever/models/category.dart';
 
 class CategoryView extends StatefulWidget {
   CategoryView({this.category, this.selectionStateChanged})
       : assert(category != null && selectionStateChanged != null);
 
-  final CategoryIcon category;
+  final Category category;
   final VoidCallback selectionStateChanged;
 
   @override

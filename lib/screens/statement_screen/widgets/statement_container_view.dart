@@ -6,7 +6,7 @@ import 'package:never_have_i_ever/blocs/app/app_event.dart';
 import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
 import 'package:never_have_i_ever/env.dart';
 
-import 'package:never_have_i_ever/models/category_icon.dart';
+import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
 
@@ -17,7 +17,7 @@ class StatementContainerView extends StatefulWidget {
 
 class _StatementContainerViewState extends State<StatementContainerView> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  final List<CategoryIcon> categories = env.categories;
+  final List<Category> categories = env.categories;
 
   Widget buildStatementView(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(

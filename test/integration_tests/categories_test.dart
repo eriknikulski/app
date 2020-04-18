@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
 
@@ -11,19 +11,19 @@ import '../setup.dart';
 main() {
   defaultSetup();
 
-  final List<CategoryIcon> categories = [
-    CategoryIcon(
-        name: Category.harmless,
+  final List<Category> categories = [
+    Category(
+        name: CategoryName.harmless,
         selectedImageUri: 'assets/categories/mojito.svg',
         unselectedImageUri: 'assets/categories/mojito_gray.svg',
         selected: true),
-    CategoryIcon(
-        name: Category.delicate,
+    Category(
+        name: CategoryName.delicate,
         selectedImageUri: 'assets/categories/beer.svg',
         unselectedImageUri: 'assets/categories/beer_gray.svg',
         selected: false),
-    CategoryIcon(
-        name: Category.offensive,
+    Category(
+        name: CategoryName.offensive,
         selectedImageUri: 'assets/categories/cocktail.svg',
         unselectedImageUri: 'assets/categories/cocktail_gray.svg',
         selected: false),

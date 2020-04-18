@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
 
 main() {
-  final category = CategoryIcon(
-      name: Category.harmless,
+  final category = Category(
+      name: CategoryName.harmless,
       selectedImageUri: 'assets/categories/mojito.svg',
       unselectedImageUri: 'assets/categories/mojito_gray.svg',
       selected: true);

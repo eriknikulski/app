@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
+import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/category_icon.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
@@ -19,8 +19,8 @@ main() {
   final client = MockClient();
   StatementApiProvider.client = client;
 
-  final category = CategoryIcon(
-      name: Category.harmless,
+  final category = Category(
+      name: CategoryName.harmless,
       selectedImageUri: 'images/mojito.svg',
       unselectedImageUri: 'images/mojito_gray.svg',
       selected: true);

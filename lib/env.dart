@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'package:never_have_i_ever/models/category_icon.dart';
+import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
 enum BuildFlavor { production, development, staging }
@@ -13,7 +13,7 @@ class BuildEnvironment {
   final BuildFlavor flavor;
   final Statement defaultStatement;
   final Statement errorStatement;
-  final List<CategoryIcon> categories;
+  final List<Category> categories;
 
   BuildEnvironment._init(
       {this.flavor,
