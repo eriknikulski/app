@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:mockito/mockito.dart';
+import 'package:http/http.dart' as http show Client;
+import 'package:mockito/mockito.dart' show Mock;
 
 import 'package:never_have_i_ever/screens/statement_screen/statement_screen.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';

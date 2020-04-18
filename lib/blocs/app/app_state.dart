@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart' show Equatable;
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/statement.dart';

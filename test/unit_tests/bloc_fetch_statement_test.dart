@@ -1,14 +1,14 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:mockito/mockito.dart';
+import 'package:http/http.dart' as http show Client, Response;
+import 'package:mockito/mockito.dart' show Mock, when;
+
 import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
 import 'package:never_have_i_ever/blocs/app/app_event.dart';
 import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
-
 import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';

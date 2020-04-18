@@ -1,9 +1,9 @@
-import 'dart:io';
+import 'dart:io' show SocketException;
 
-import 'package:matcher/matcher.dart';
+import 'package:matcher/matcher.dart' show TypeMatcher;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:mockito/mockito.dart';
+import 'package:http/http.dart' as http show Client, Response;
+import 'package:mockito/mockito.dart' show Mock, when;
 
 import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';

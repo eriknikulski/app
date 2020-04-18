@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/cupertino.dart' show required;
+import 'package:flutter_bloc/flutter_bloc.dart' show Bloc;
 
-import 'package:never_have_i_ever/blocs/app/app_event.dart';
-import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
+
+import 'app_event.dart';
+import 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   final StatementBloc statementBloc;

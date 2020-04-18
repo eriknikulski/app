@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' show required;
 
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';

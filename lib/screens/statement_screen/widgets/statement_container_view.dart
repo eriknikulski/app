@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, BlocProvider;
+
 import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/app/app_event.dart';
 import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
 import 'package:never_have_i_ever/env.dart';
-
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
-import 'package:never_have_i_ever/screens/statement_screen/widgets/statement_view.dart';
+
+import 'categories_view.dart';
+import 'statement_view.dart';
 
 class StatementContainerView extends StatefulWidget {
   @override

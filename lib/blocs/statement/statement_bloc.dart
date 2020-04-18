@@ -1,10 +1,11 @@
-import 'dart:io';
+import 'dart:io' show SocketException;
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show Bloc;
 
-import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
-import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
+
+import 'statement_event.dart';
+import 'statement_state.dart';
 
 class StatementBloc extends Bloc<StatementEvent, StatementState> {
   static const statementProvider = StatementApiProvider;

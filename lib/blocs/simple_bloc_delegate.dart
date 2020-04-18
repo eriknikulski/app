@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart' show Bloc, BlocDelegate, Transition;
 
-import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
+import 'app/app_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override

@@ -1,10 +1,9 @@
-import 'dart:convert';
+import 'dart:convert' show json;
 
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart' show Equatable;
+import 'package:meta/meta.dart' show required;
 
-import 'package:never_have_i_ever/models/category_name.dart';
+import 'category_name.dart';
 
 class Statement extends Equatable {
   final String uuid;

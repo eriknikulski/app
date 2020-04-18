@@ -1,7 +1,7 @@
-import 'dart:io';
+import 'dart:io' show SocketException;
 
 import 'package:flutter/foundation.dart' show describeEnum;
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http show Client;
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category.dart';

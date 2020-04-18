@@ -1,7 +1,7 @@
-import 'dart:convert';
+import 'dart:convert' show json;
 
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/widgets.dart' show WidgetsFlutterBinding;
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category.dart';

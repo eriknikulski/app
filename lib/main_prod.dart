@@ -1,12 +1,12 @@
-import 'dart:convert';
+import 'dart:convert' show json;
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' ;
+import 'package:flutter/material.dart' show runApp, WidgetsFlutterBinding;
+import 'package:flutter/services.dart' show rootBundle;
 
-import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/statement.dart';
-import 'package:never_have_i_ever/screens/app.dart';
+import 'env.dart';
+import 'models/category.dart';
+import 'models/statement.dart';
+import 'screens/app.dart';
 
 
 Future<void> main() async {

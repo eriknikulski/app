@@ -1,6 +1,6 @@
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' show required;
 
-import 'package:never_have_i_ever/models/category_name.dart';
+import 'category_name.dart';
 
 class Category {
   final CategoryName name;

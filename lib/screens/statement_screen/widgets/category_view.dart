@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show describeEnum;
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 
 import 'package:never_have_i_ever/models/category.dart';
 

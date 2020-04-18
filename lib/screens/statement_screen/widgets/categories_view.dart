@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
+
+import 'category_view.dart';
 
 class CategoriesView extends StatefulWidget {
   /// Creates a row with the categories.
