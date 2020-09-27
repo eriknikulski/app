@@ -1,6 +1,7 @@
 import 'dart:convert' show json;
 
-import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
+import 'package:flutter/material.dart'
+    show Brightness, WidgetsFlutterBinding, runApp;
 import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
     systemNavigationBarColor: appTheme().scaffoldBackgroundColor,
     statusBarColor: appTheme().scaffoldBackgroundColor,
+    statusBarIconBrightness: Brightness.dark,
   ));
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,17 +23,18 @@ Future<void> main() async {
   Map config = json.decode(raw);
 
   BuildEnvironment.init(
-      flavor: BuildFlavor.production,
-      baseUrl: config['prod']['baseUrl'] as String,
-      defaultStatement: Statement.fromMap(config['defaultStatement']),
-      errorStatement: Statement.fromMap(config['errorStatement']),
-      categories: [
-        Category.fromMap(config['categories']['harmless']),
-        Category.fromMap(config['categories']['delicate']),
-        Category.fromMap(config['categories']['offensive'])
-      ],
-      maxPrefetchCalls: config['maxPrefetchCalls'],
-      prefetchWaitTime: config['prefetchWaitTime'],);
+    flavor: BuildFlavor.production,
+    baseUrl: config['prod']['baseUrl'] as String,
+    defaultStatement: Statement.fromMap(config['defaultStatement']),
+    errorStatement: Statement.fromMap(config['errorStatement']),
+    categories: [
+      Category.fromMap(config['categories']['harmless']),
+      Category.fromMap(config['categories']['delicate']),
+      Category.fromMap(config['categories']['offensive'])
+    ],
+    maxPrefetchCalls: config['maxPrefetchCalls'],
+    prefetchWaitTime: config['prefetchWaitTime'],
+  );
   assert(env != null);
 
   runApp(App());
