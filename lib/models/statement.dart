@@ -1,6 +1,7 @@
 import 'dart:convert' show json;
 
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart' show required;
 
 import 'category_name.dart';
@@ -14,6 +15,7 @@ class Statement extends Equatable {
       {@required this.text, @required this.uuid, @required this.category});
 
   factory Statement.fromJson(String string) {
+    print(string);
     final jsonData = json.decode(string);
     return Statement.fromMap(jsonData);
   }
@@ -26,14 +28,12 @@ class Statement extends Equatable {
             (e) => e.toString() == 'CategoryName.${map['category']}'));
   }
 
-  Map<String, dynamic> toJson() {
-    var value = {
+  Map<String, dynamic> toJson() =>
+    {
       'ID': uuid,
       'statement': text,
-      'category': category,
+      'category': describeEnum(category),
     };
-    return value;
-  }
 
   @override
   String toString() {

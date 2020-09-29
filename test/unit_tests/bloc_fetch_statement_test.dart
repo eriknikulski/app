@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http show Client, Response;
@@ -70,10 +72,9 @@ main() async {
     setUp(() {
       appBloc = AppBloc(statementBloc: StatementBloc());
       Iterator<Statement> expectedResponse = statementIterable.iterator;
-      when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless'))
+      when(client.get('${env.baseUrl}/statements/random?category[]=harmless'))
           .thenAnswer((_) async {
-        var current = next(expectedResponse).toJson().toString();
+        var current = jsonEncode(next(expectedResponse));
         return http.Response(current, 200);
       });
     });
@@ -83,18 +84,19 @@ main() async {
     });
 
     test('initial state is empty', () async {
-      const Statement(
-          text: 'No internet connection', uuid: null, category: null);
       expect(appBloc.statements, []);
       expect(appBloc.currentStatementIndex, -1);
       expect(appBloc.categories, null);
     });
 
-    blocTest('emits [Uninitialized(), Initialized(),] when initialized',
-        build: () => appBloc,
+    test('initial state is uninitialized', () {
+      expect(appBloc.state, Uninitialized());
+    });
+
+    blocTest('emits [Initialized(),] when initialized',
+        build: () async => appBloc,
         act: (AppBloc bloc) async => bloc.add(Initialize(categories)),
         expect: <AppState>[
-          Uninitialized(),
           Initialized(),
         ]);
   });

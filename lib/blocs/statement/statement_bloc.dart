@@ -10,8 +10,7 @@ import 'statement_state.dart';
 class StatementBloc extends Bloc<StatementEvent, StatementState> {
   static const statementProvider = StatementApiProvider;
 
-  @override
-  StatementState get initialState => StatementLoading();
+  StatementBloc() : super(StatementLoading());
 
   @override
   Stream<StatementState> mapEventToState(StatementEvent event) async* {

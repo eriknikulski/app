@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart' show Bloc, BlocDelegate, Transition;
+import 'package:bloc/bloc.dart' show Bloc, BlocObserver, Transition;
 
 import 'app/app_bloc.dart';
 
-class SimpleBlocDelegate extends BlocDelegate {
+class SimpleBlocObserver extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);

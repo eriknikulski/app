@@ -22,7 +22,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   List<Category> categories;
   bool goForward = false;
 
-  AppBloc({@required this.statementBloc}) {
+  AppBloc({@required this.statementBloc}) : super(Uninitialized()) {
     statementSubscription = statementBloc.listen((state) {
       if (state is StatementLoaded) {
         add(AddStatement(state.statement));
@@ -31,9 +31,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       }
     });
   }
-
-  @override
-  AppState get initialState => Uninitialized();
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
