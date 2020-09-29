@@ -21,7 +21,7 @@ import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 
-class MockStatementBloc extends MockBloc<StatementEvent, StatementState>
+class MockStatementBloc extends MockBloc<StatementState>
     implements StatementBloc {}
 
 Statement next(Iterator<Statement> iterator) {
@@ -94,7 +94,7 @@ main() async {
     });
 
     blocTest('emits [Initialized(),] when initialized',
-        build: () async => appBloc,
+        build: () => appBloc,
         act: (AppBloc bloc) async => bloc.add(Initialize(categories)),
         expect: <AppState>[
           Initialized(),

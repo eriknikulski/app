@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart' show Bloc, BlocObserver, Transition;
+import 'package:bloc/bloc.dart' show Bloc, BlocObserver, Cubit, Transition;
 
 import 'app/app_bloc.dart';
 
@@ -16,14 +16,14 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
-  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
+  void onError(Cubit cubit, Object error, StackTrace stacktrace) {
     print('-------------------------------------------------');
     print('Error');
     print('-------------------------------------------------');
-    super.onError(bloc, error, stacktrace);
+    super.onError(cubit, error, stacktrace);
     print(error);
-    if (bloc is AppBloc) {
-      print(bloc.statements);
+    if (cubit is AppBloc) {
+      print(cubit.statements);
     }
   }
 }
