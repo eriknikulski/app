@@ -76,12 +76,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   void _mapAddStatement(AddStatement event) {
-    var newStatement = event.statement;
-    if (statements.contains(newStatement)) {
-      statementBloc.add(LoadStatement(categories));
-      return;
-    }
-    statements.add(newStatement);
+    statements.add(event.statement);
     if (goForward || state is AppException) {
       goForward = false;
       add(GoForward(categories));

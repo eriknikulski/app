@@ -2,6 +2,7 @@ import 'dart:io' show SocketException;
 
 import 'package:flutter/foundation.dart' show describeEnum;
 import 'package:http/http.dart' as http show Client;
+import 'package:uuid/uuid.dart';
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category.dart';
@@ -10,6 +11,7 @@ import 'package:never_have_i_ever/models/statement.dart';
 class StatementApiProvider {
   static final baseUrl = env.baseUrl;
   static http.Client client = http.Client();
+  static final uuid = Uuid().v4();
 
   /// Returns `Future<Statement>` from [baseUrl] based on [categories].
   ///
@@ -29,7 +31,8 @@ class StatementApiProvider {
             ? 'category[]=${describeEnum(category.name)}'
             : null)
         .where((element) => element != null)
-        .join('&');
+        .join('&')
+        + '&game_id=$uuid';
 
     final response = await client.get('$baseUrl/statements/random?$params');
 
