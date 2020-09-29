@@ -7,11 +7,15 @@ import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'widgets/statement_container_view.dart';
 
 class StatementScreen extends StatelessWidget {
+  final AppBloc bloc;
+
+  StatementScreen({ this.bloc });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => AppBloc(statementBloc: StatementBloc()),
+        create: (context) => bloc ?? AppBloc(statementBloc: StatementBloc()),
         child: StatementContainerView(),
       ),
     );

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http show Client;
-import 'package:mockito/mockito.dart' show Mock;
+import 'package:http/http.dart' as http show Client, Response;
+import 'package:mockito/mockito.dart' show Mock, when;
 
+import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
+import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
+import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/screens/statement_screen/statement_screen.dart';
 import 'package:never_have_i_ever/services/statement_api_provider.dart';
 
@@ -11,7 +14,7 @@ import '../setup.dart';
 class MockClient extends Mock implements http.Client {}
 
 main() async {
-  await defaultSetup();
+  AppBloc bloc;
   MockClient client = MockClient();
   StatementApiProvider.client = client;
   final answersHarmless = [
@@ -26,17 +29,33 @@ main() async {
     '{"ID":"f2cfe7b2-d392-492b-b859-38d2b14c2254","statement":"Never have I ever kissed someone and regretted it afterwards.","category":"delicate"}',
   ];
 
+  setUp(() {
+    bloc = AppBloc(statementBloc: StatementBloc());
+  });
+
+  await defaultSetup();
+
+  tearDown(() {
+    bloc?.close();
+  });
+
   group('statement screen widget', () {
     testWidgets('initial state', (WidgetTester tester) async {
+      when(client.get(
+              '${env.baseUrl}/statements/random?category[]=harmless&category[]=delicate&category[]=offensive'))
+          .thenAnswer((_) async {
+        return http.Response(answersHarmless[0], 200);
+      });
+
       Widget statementScreen = MediaQuery(
         data: MediaQueryData(),
-        child: MaterialApp(home: StatementScreen()),
+        child: MaterialApp(home: StatementScreen(bloc: bloc)),
       );
 
       await tester.pumpWidget(statementScreen);
       await tester.pumpAndSettle();
 
-      expect(find.text('Tap to start playing'), findsOneWidget);
+      expect(find.text(env.defaultStatement.text), findsOneWidget);
     });
   });
 }

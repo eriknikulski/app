@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
+import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
@@ -43,8 +46,11 @@ main() async {
       Widget categoriesView = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CategoriesView(
-            categories: categories,
+          home: BlocProvider(
+            create: (context) => AppBloc(statementBloc: StatementBloc()),
+            child: CategoriesView(
+              categories: categories,
+            ),
           ),
         ),
       );
@@ -54,9 +60,15 @@ main() async {
       expect(find.text('delicate'), findsOneWidget);
       expect(find.text('offensive'), findsOneWidget);
 
-      var categoryFirst = find.byType(CategoryView).evaluate().first.widget as CategoryView;
-      var categorySecond = find.byType(CategoryView).evaluate().elementAt(1).widget as CategoryView;
-      var categoryThird = find.byType(CategoryView).evaluate().last.widget as CategoryView;
+      var categoryFirst =
+          find.byType(CategoryView).evaluate().first.widget as CategoryView;
+      var categorySecond = find
+          .byType(CategoryView)
+          .evaluate()
+          .elementAt(1)
+          .widget as CategoryView;
+      var categoryThird =
+          find.byType(CategoryView).evaluate().last.widget as CategoryView;
 
       expect(categoryFirst.category.selected, isTrue);
       expect(categorySecond.category.selected, isFalse);
@@ -67,16 +79,25 @@ main() async {
       Widget categoriesView = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CategoriesView(
-            categories: categories,
+          home: BlocProvider(
+            create: (context) => AppBloc(statementBloc: StatementBloc()),
+            child: CategoriesView(
+              categories: categories,
+            ),
           ),
         ),
       );
       await tester.pumpWidget(categoriesView);
 
-      var categoryFirst = find.byType(CategoryView).evaluate().first.widget as CategoryView;
-      var categorySecond = find.byType(CategoryView).evaluate().elementAt(1).widget as CategoryView;
-      var categoryThird = find.byType(CategoryView).evaluate().last.widget as CategoryView;
+      var categoryFirst =
+          find.byType(CategoryView).evaluate().first.widget as CategoryView;
+      var categorySecond = find
+          .byType(CategoryView)
+          .evaluate()
+          .elementAt(1)
+          .widget as CategoryView;
+      var categoryThird =
+          find.byType(CategoryView).evaluate().last.widget as CategoryView;
 
       await tester.tap(find.byType(CategoryView).at(1));
       await tester.tap(find.byType(CategoryView).last);
@@ -90,16 +111,25 @@ main() async {
       Widget categoriesView = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CategoriesView(
-            categories: categories,
+          home: BlocProvider(
+            create: (context) => AppBloc(statementBloc: StatementBloc()),
+            child: CategoriesView(
+              categories: categories,
+            ),
           ),
         ),
       );
       await tester.pumpWidget(categoriesView);
 
-      var categoryFirst = find.byType(CategoryView).evaluate().first.widget as CategoryView;
-      var categorySecond = find.byType(CategoryView).evaluate().elementAt(1).widget as CategoryView;
-      var categoryThird = find.byType(CategoryView).evaluate().last.widget as CategoryView;
+      var categoryFirst =
+          find.byType(CategoryView).evaluate().first.widget as CategoryView;
+      var categorySecond = find
+          .byType(CategoryView)
+          .evaluate()
+          .elementAt(1)
+          .widget as CategoryView;
+      var categoryThird =
+          find.byType(CategoryView).evaluate().last.widget as CategoryView;
 
       await tester.tap(find.byType(CategoryView).last);
       await tester.tap(find.byType(CategoryView).first);
@@ -113,16 +143,25 @@ main() async {
       Widget categoriesView = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CategoriesView(
-            categories: categories,
+          home: BlocProvider(
+            create: (context) => AppBloc(statementBloc: StatementBloc()),
+            child: CategoriesView(
+              categories: categories,
+            ),
           ),
         ),
       );
       await tester.pumpWidget(categoriesView);
 
-      var categoryFirst = find.byType(CategoryView).evaluate().first.widget as CategoryView;
-      var categorySecond = find.byType(CategoryView).evaluate().elementAt(1).widget as CategoryView;
-      var categoryThird = find.byType(CategoryView).evaluate().last.widget as CategoryView;
+      var categoryFirst =
+          find.byType(CategoryView).evaluate().first.widget as CategoryView;
+      var categorySecond = find
+          .byType(CategoryView)
+          .evaluate()
+          .elementAt(1)
+          .widget as CategoryView;
+      var categoryThird =
+          find.byType(CategoryView).evaluate().last.widget as CategoryView;
 
       await tester.tap(find.byType(CategoryView).first);
 
