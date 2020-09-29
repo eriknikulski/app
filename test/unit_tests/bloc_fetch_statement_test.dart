@@ -9,6 +9,7 @@ import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
+import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
@@ -26,8 +27,8 @@ Statement next(Iterator<Statement> iterator) {
   return iterator.current;
 }
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
 
   MockClient client = MockClient();
   StatementApiProvider.client = client;
@@ -70,7 +71,7 @@ main() {
       appBloc = AppBloc(statementBloc: StatementBloc());
       Iterator<Statement> expectedResponse = statementIterable.iterator;
       when(client.get(
-              'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless'))
           .thenAnswer((_) async {
         var current = next(expectedResponse).toJson().toString();
         return http.Response(current, 200);

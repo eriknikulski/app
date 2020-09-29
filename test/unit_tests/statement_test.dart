@@ -5,8 +5,8 @@ import 'package:never_have_i_ever/models/statement.dart';
 
 import '../setup.dart';
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
 
   group('test statement object', () {
     test('right attributes', () {

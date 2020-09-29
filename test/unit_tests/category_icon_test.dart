@@ -5,8 +5,8 @@ import 'package:never_have_i_ever/models/category.dart';
 
 import '../setup.dart';
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
 
   group('test category icon object', () {
     test('right attributes', () {

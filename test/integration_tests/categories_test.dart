@@ -8,8 +8,8 @@ import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view
 
 import '../setup.dart';
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
 
   final List<Category> categories = [
     Category(

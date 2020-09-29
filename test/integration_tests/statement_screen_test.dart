@@ -10,8 +10,8 @@ import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
   MockClient client = MockClient();
   StatementApiProvider.client = client;
   final answersHarmless = [

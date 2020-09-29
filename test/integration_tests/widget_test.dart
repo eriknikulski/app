@@ -4,8 +4,8 @@ import 'package:never_have_i_ever/screens/app.dart';
 
 import '../setup.dart';
 
-void main() {
-  defaultSetup();
+void main() async {
+  await defaultSetup();
 
   testWidgets('Initial state', (WidgetTester tester) async {
     await tester.pumpWidget(App());

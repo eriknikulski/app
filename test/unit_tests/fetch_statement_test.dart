@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http show Client, Response;
 import 'package:mockito/mockito.dart' show Mock, when;
 
+import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category_name.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
@@ -14,8 +15,8 @@ import '../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 
-main() {
-  defaultSetup();
+main() async {
+  await defaultSetup();
   final client = MockClient();
   StatementApiProvider.client = client;
 
@@ -32,7 +33,7 @@ main() {
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
 
       when(client.get(
-              'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response(answer, 200));
 
       expect(
@@ -45,7 +46,7 @@ main() {
 
     test('no internet connection', () async {
       when(client.get(
-              'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless'))
           .thenAnswer((_) async => throw SocketException('Failed host lookup'));
 
       expect(
@@ -56,7 +57,7 @@ main() {
 
     test('bad http status code', () async {
       when(client.get(
-              'https://api.neverhaveiever.io/v1/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless'))
           .thenAnswer((_) async => http.Response('', 400));
 
       expect(

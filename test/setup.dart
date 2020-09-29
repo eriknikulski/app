@@ -1,14 +1,14 @@
 import 'dart:convert' show json;
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter/widgets.dart' show WidgetsFlutterBinding;
+import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
 
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category.dart';
 import 'package:never_have_i_ever/models/statement.dart';
 
 defaultSetup() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
 
   String raw = await rootBundle.loadString('lib/config.json');
   Map config = json.decode(raw);
