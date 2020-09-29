@@ -15,7 +15,6 @@ class Statement extends Equatable {
       {@required this.text, @required this.uuid, @required this.category});
 
   factory Statement.fromJson(String string) {
-    print(string);
     final jsonData = json.decode(string);
     return Statement.fromMap(jsonData);
   }
