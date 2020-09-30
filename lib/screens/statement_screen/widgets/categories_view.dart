@@ -25,7 +25,7 @@ class _CategoriesViewState extends State<CategoriesView> {
         widget.categories.forEach((category) => category.selected = true);
       });
     }
-    BlocProvider.of<AppBloc>(context).add(ChangeCategory(widget.categories));
+    BlocProvider.of<AppBloc>(context).add(ChangeCategories(widget.categories));
   }
 
   @override

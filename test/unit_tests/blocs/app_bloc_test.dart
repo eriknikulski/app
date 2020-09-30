@@ -13,7 +13,7 @@ import 'package:nhie/models/category.dart';
 import 'package:nhie/models/statement.dart';
 import 'package:nhie/services/statement_api_provider.dart';
 
-import '../setup.dart';
+import '../../setup.dart';
 
 class MockClient extends Mock implements http.Client {}
 

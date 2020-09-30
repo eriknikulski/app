@@ -39,8 +39,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield* _mapGoForwardToForward(event);
     } else if (event is AddStatement) {
       _mapAddStatement(event);
-    } else if (event is ChangeCategory) {
-      _mapChangeCategory(event);
+    } else if (event is ChangeCategories) {
+      _mapChangeCategories(event);
     }
   }
 
@@ -80,7 +80,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     }
   }
 
-  void _mapChangeCategory(ChangeCategory event) {
+  void _mapChangeCategories(ChangeCategories event) {
     categories = event.categories;
     statements.removeRange(currentStatementIndex + 1, statements.length);
   }
