@@ -20,6 +20,10 @@ void main() {
       test('toString returns correct value', () {
         expect(StatementLoading().toString(), 'StatementLoading');
       });
+
+      test('props returns correct value', () {
+        expect(StatementLoading().props, []);
+      });
     });
 
     group('StatementLoaded', () {
@@ -27,12 +31,20 @@ void main() {
         expect(StatementLoaded(statement).toString(),
             'StatementLoaded { statement: $statement }');
       });
+
+      test('props returns correct value', () {
+        expect(StatementLoaded(statement).props, [statement]);
+      });
     });
 
     group('StatementNotLoaded', () {
       test('toString returns correct value', () {
         expect(StatementNotLoaded(exception).toString(),
             'StatementNotLoaded { exception: $exception }');
+      });
+
+      test('props returns correct value', () {
+        expect(StatementNotLoaded(exception).props, [exception]);
       });
     });
   });

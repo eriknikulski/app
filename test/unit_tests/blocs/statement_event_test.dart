@@ -28,6 +28,10 @@ void main() {
         expect(LoadStatement(categories).toString(),
             'LoadStatement { categories: $categories }');
       });
+
+      test('props returns correct value', () {
+        expect(LoadStatement(categories).props, [categories]);
+      });
     });
   });
 }

@@ -41,4 +41,9 @@ class AppException extends AppState {
   String toString() {
     return 'AppException { exception: $exception }';
   }
+
+  @override
+  bool operator ==(Object other) {
+    return toString() == other.toString();
+  }
 }

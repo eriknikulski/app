@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -63,6 +65,8 @@ main() async {
     ),
   ]);
 
+  Exception exception = SocketException('Bad status code');
+
   group('bloc fetch statement', () {
     AppBloc appBloc;
 
@@ -97,5 +101,20 @@ main() async {
         expect: <AppState>[
           Initialized(),
         ]);
+
+    blocTest('emits [Initialized(),] when initialized', build: () {
+      when(client.get(
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+          .thenAnswer((_) async {
+        return http.Response('', 400);
+      });
+      return appBloc;
+    }, act: (AppBloc bloc) async {
+      bloc.add(Initialize(categories));
+      Timer(Duration(seconds: 1), () {});
+    }, expect: <AppState>[
+      Initialized(),
+      AppException(exception),
+    ]);
   });
 }

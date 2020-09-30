@@ -33,4 +33,9 @@ class StatementNotLoaded extends StatementState {
 
   @override
   String toString() => 'StatementNotLoaded { exception: $exception }';
+
+  @override
+  bool operator ==(Object other) {
+    return toString() == other.toString();
+  }
 }

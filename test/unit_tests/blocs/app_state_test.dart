@@ -24,11 +24,19 @@ void main() {
       test('toString returns correct value', () {
         expect(Uninitialized().toString(), 'Uninitialized');
       });
+
+      test('props returns correct value', () {
+        expect(Uninitialized().props, []);
+      });
     });
 
     group('Initialized', () {
       test('toString returns correct value', () {
         expect(Initialized().toString(), 'Initialized');
+      });
+
+      test('props returns correct value', () {
+        expect(Initialized().props, []);
       });
     });
 
@@ -37,12 +45,20 @@ void main() {
         expect(
             Forward(statement).toString(), 'Forward { statement: $statement }');
       });
+
+      test('props returns correct value', () {
+        expect(Forward(statement).props, [statement]);
+      });
     });
 
     group('AppException', () {
       test('toString returns correct value', () {
         expect(AppException(exception).toString(),
             'AppException { exception: $exception }');
+      });
+
+      test('props returns correct value', () {
+        expect(AppException(exception).props, [exception]);
       });
     });
   });

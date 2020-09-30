@@ -40,12 +40,20 @@ void main() {
         expect(Initialize(categories).toString(),
             'Initialize { categories: $categories }');
       });
+
+      test('props returns correct value', () {
+        expect(Initialize(categories).props, [categories]);
+      });
     });
 
     group('GoForward', () {
       test('toString returns correct value', () {
         expect(GoForward(categories).toString(),
             'GoForward { categories: $categories }');
+      });
+
+      test('props returns correct value', () {
+        expect(GoForward(categories).props, [categories]);
       });
     });
 
@@ -54,6 +62,10 @@ void main() {
         expect(AddStatement(statement).toString(),
             'AddStatement { statement: $statement }');
       });
+
+      test('props returns correct value', () {
+        expect(AddStatement(statement).props, [statement]);
+      });
     });
 
     group('ChangeCategories', () {
@@ -61,12 +73,20 @@ void main() {
         expect(ChangeCategories(categories).toString(),
             'ChangeCategories { categories: $categories }');
       });
+
+      test('props returns correct value', () {
+        expect(ChangeCategories(categories).props, [categories]);
+      });
     });
 
     group('HandleException', () {
       test('toString returns correct value', () {
         expect(HandleException(exception).toString(),
             'HandleException { exception: $exception }');
+      });
+
+      test('props returns correct value', () {
+        expect(HandleException(exception).props, [exception]);
       });
     });
   });
