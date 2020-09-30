@@ -7,7 +7,7 @@ import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 import 'package:flutter_bloc/flutter_bloc.dart' show Bloc;
 
-import 'package:nhie/blocs/simple_bloc_delegate.dart';
+import 'package:nhie/blocs/simple_bloc_observer.dart';
 import 'package:nhie/env.dart';
 import 'package:nhie/models/category.dart';
 import 'package:nhie/models/statement.dart';
