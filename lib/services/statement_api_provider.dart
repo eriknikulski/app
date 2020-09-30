@@ -10,8 +10,8 @@ import 'package:never_have_i_ever/models/statement.dart';
 
 class StatementApiProvider {
   static final baseUrl = env.baseUrl;
-  static http.Client client = http.Client();
   static final uuid = Uuid().v4();
+  static http.Client client = http.Client();
 
   /// Returns `Future<Statement>` from [baseUrl] based on [categories].
   ///

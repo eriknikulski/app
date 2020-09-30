@@ -17,6 +17,7 @@ main() async {
   AppBloc bloc;
   MockClient client = MockClient();
   StatementApiProvider.client = client;
+  final uuid = StatementApiProvider.uuid;
   final answersHarmless = [
     '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}',
     '{"ID":"f3cdd350-6c8e-4830-a706-87a59453b045","statement":"Never have I ever read a complete book for school.","category":"harmless"}',
@@ -42,7 +43,7 @@ main() async {
   group('statement screen widget', () {
     testWidgets('initial state', (WidgetTester tester) async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&category[]=delicate&category[]=offensive'))
+              '${env.baseUrl}/statements/random?category[]=harmless&category[]=delicate&category[]=offensive&game_id=$uuid'))
           .thenAnswer((_) async {
         return http.Response(answersHarmless[0], 200);
       });

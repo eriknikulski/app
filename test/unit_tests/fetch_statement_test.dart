@@ -19,6 +19,7 @@ main() async {
   await defaultSetup();
   final client = MockClient();
   StatementApiProvider.client = client;
+  final uuid = StatementApiProvider.uuid;
 
   final category = Category(
       name: CategoryName.harmless,
@@ -33,7 +34,7 @@ main() async {
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
 
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
           .thenAnswer((_) async => http.Response(answer, 200));
 
       expect(
@@ -46,7 +47,7 @@ main() async {
 
     test('no internet connection', () async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
           .thenAnswer((_) async => throw SocketException('Failed host lookup'));
 
       expect(
@@ -57,7 +58,7 @@ main() async {
 
     test('bad http status code', () async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
           .thenAnswer((_) async => http.Response('', 400));
 
       expect(

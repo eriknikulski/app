@@ -9,7 +9,6 @@ import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
 import 'package:never_have_i_ever/blocs/app/app_event.dart';
 import 'package:never_have_i_ever/blocs/app/app_state.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
-import 'package:never_have_i_ever/blocs/statement/statement_event.dart';
 import 'package:never_have_i_ever/blocs/statement/statement_state.dart';
 import 'package:never_have_i_ever/env.dart';
 import 'package:never_have_i_ever/models/category_name.dart';
@@ -34,6 +33,7 @@ main() async {
 
   MockClient client = MockClient();
   StatementApiProvider.client = client;
+  final uuid = StatementApiProvider.uuid;
 
   List<Category> categories = [
     Category(
@@ -72,7 +72,8 @@ main() async {
     setUp(() {
       appBloc = AppBloc(statementBloc: StatementBloc());
       Iterator<Statement> expectedResponse = statementIterable.iterator;
-      when(client.get('${env.baseUrl}/statements/random?category[]=harmless'))
+      when(client.get(
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
           .thenAnswer((_) async {
         var current = jsonEncode(next(expectedResponse));
         return http.Response(current, 200);
