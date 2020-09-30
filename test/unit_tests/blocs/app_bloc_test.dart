@@ -64,6 +64,11 @@ main() async {
       category: CategoryName.harmless,
     ),
   ]);
+  Statement statement = Statement(
+    uuid: 'e1ce4647-c87d-4a0f-a91b-8db204e8889d',
+    text: 'Never have I ever told somebody that I love his/her body.',
+    category: CategoryName.harmless,
+  );
 
   Exception exception = SocketException('Bad status code');
 
@@ -116,5 +121,21 @@ main() async {
       Initialized(),
       AppException(exception),
     ]);
+
+    blocTest('emits [Initialized(),] when initialized',
+        build: () {
+          when(client.get(
+                  '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              .thenAnswer((_) async {
+            return http.Response(jsonEncode(statement), 200);
+          });
+          return appBloc;
+        },
+        act: (AppBloc bloc) async =>
+            bloc..add(Initialize(categories))..add(GoForward(categories)),
+        expect: <AppState>[
+          Initialized(),
+          Forward(statement),
+        ]);
   });
 }
