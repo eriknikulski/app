@@ -7,12 +7,12 @@ import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 import 'package:flutter_bloc/flutter_bloc.dart' show Bloc;
 
-import 'blocs/simple_bloc_delegate.dart';
-import 'env.dart';
-import 'models/category.dart';
-import 'models/statement.dart';
-import 'screens/app.dart';
-import 'theme/style.dart';
+import 'package:nhie/blocs/simple_bloc_delegate.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/models/statement.dart';
+import 'package:nhie/screens/app.dart';
+import 'package:nhie/theme/style.dart';
 
 Future<void> main() async {
   debugPaintSizeEnabled = true;

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
-import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
-import 'package:never_have_i_ever/models/category_name.dart';
-import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/screens/statement_screen/widgets/categories_view.dart';
-import 'package:never_have_i_ever/screens/statement_screen/widgets/category_view.dart';
+import 'package:nhie/blocs/app/app.dart';
+import 'package:nhie/blocs/statement/statement.dart';
+import 'package:nhie/models/category_name.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/screens/statement_screen/widgets/categories_view.dart';
+import 'package:nhie/screens/statement_screen/widgets/category_view.dart';
 
 import '../setup.dart';
 

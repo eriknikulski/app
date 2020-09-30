@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
-import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
-import 'package:never_have_i_ever/screens/app.dart';
+import 'package:nhie/blocs/app/app.dart';
+import 'package:nhie/blocs/statement/statement.dart';
+import 'package:nhie/screens/app.dart';
 
 import '../setup.dart';
 

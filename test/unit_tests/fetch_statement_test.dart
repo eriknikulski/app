@@ -5,11 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http show Client, Response;
 import 'package:mockito/mockito.dart' show Mock, when;
 
-import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/models/category_name.dart';
-import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/statement.dart';
-import 'package:never_have_i_ever/services/statement_api_provider.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/models/category_name.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/models/statement.dart';
+import 'package:nhie/services/statement_api_provider.dart';
 
 import '../setup.dart';
 

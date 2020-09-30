@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http show Client, Response;
 import 'package:mockito/mockito.dart' show Mock, when;
 
-import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
-import 'package:never_have_i_ever/blocs/statement/statement_bloc.dart';
-import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/screens/statement_screen/statement_screen.dart';
-import 'package:never_have_i_ever/services/statement_api_provider.dart';
+import 'package:nhie/blocs/app/app.dart';
+import 'package:nhie/blocs/statement/statement.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/screens/statement_screen/statement_screen.dart';
+import 'package:nhie/services/statement_api_provider.dart';
 
 import '../setup.dart';
 

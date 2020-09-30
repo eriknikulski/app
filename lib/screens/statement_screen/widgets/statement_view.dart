@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:never_have_i_ever/models/statement.dart';
+import 'package:nhie/models/statement.dart';
 
 class StatementView extends StatelessWidget {
   StatementView({this.statement}) : assert(statement != null);

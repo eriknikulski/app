@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
-import 'package:never_have_i_ever/models/category.dart';
+import 'package:nhie/models/category.dart';
 
 abstract class StatementEvent extends Equatable {
   const StatementEvent();

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart' show required;
 
-import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/statement.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/models/statement.dart';
 
 enum BuildFlavor { production, development, staging }
 

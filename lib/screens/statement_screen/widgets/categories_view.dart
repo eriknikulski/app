@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 
-import 'package:never_have_i_ever/blocs/app/app_bloc.dart';
-import 'package:never_have_i_ever/blocs/app/app_event.dart';
-import 'package:never_have_i_ever/models/category.dart';
-
-import 'category_view.dart';
+import 'package:nhie/blocs/app/app.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/screens/statement_screen/widgets/category_view.dart';
 
 class CategoriesView extends StatefulWidget {
   /// Creates a row with the categories.

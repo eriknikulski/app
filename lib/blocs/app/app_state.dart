@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
-import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/models/statement.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/models/statement.dart';
 
 abstract class AppState extends Equatable {
   final Statement statement = env.defaultStatement;

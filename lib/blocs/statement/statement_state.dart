@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
-import 'package:never_have_i_ever/models/statement.dart';
+import 'package:nhie/models/statement.dart';
 
 abstract class StatementState extends Equatable {
   const StatementState();

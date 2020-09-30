@@ -3,9 +3,9 @@ import 'dart:convert' show json;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
 
-import 'package:never_have_i_ever/env.dart';
-import 'package:never_have_i_ever/models/category.dart';
-import 'package:never_have_i_ever/models/statement.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/models/statement.dart';
 
 defaultSetup() async {
   TestWidgetsFlutterBinding.ensureInitialized();

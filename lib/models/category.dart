@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart' show required;
 
-import 'category_name.dart';
+import 'package:nhie/models/category_name.dart';
 
 class Category {
   final CategoryName name;

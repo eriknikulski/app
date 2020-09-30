@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart' show Bloc, BlocObserver, Cubit, Transition;
 
-import 'app/app_bloc.dart';
+import 'package:nhie/blocs/app/app_bloc.dart';
 
 class SimpleBlocObserver extends BlocObserver {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:never_have_i_ever/models/category_name.dart';
-import 'package:never_have_i_ever/models/category.dart';
+import 'package:nhie/models/category_name.dart';
+import 'package:nhie/models/category.dart';
 
 import '../setup.dart';
 

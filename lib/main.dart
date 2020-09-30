@@ -6,11 +6,11 @@ import 'package:flutter/material.dart'
 import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 
-import 'env.dart';
-import 'models/category.dart';
-import 'models/statement.dart';
-import 'screens/app.dart';
-import 'theme/style.dart';
+import 'package:nhie/env.dart';
+import 'package:nhie/models/category.dart';
+import 'package:nhie/models/statement.dart';
+import 'package:nhie/screens/app.dart';
+import 'package:nhie/theme/style.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
