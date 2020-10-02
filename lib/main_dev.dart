@@ -1,7 +1,8 @@
 import 'dart:convert' show json;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart'
-    show Brightness, WidgetsFlutterBinding, runApp;
+    show Brightness, Locale, WidgetsFlutterBinding, runApp;
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
@@ -39,10 +40,20 @@ Future<void> main() async {
     ],
     maxPrefetchCalls: config['maxPrefetchCalls'],
     prefetchWaitTime: config['prefetchWaitTime'],
+    languageCodes: config['languageCodes'].cast<String>(),
+    selectedLanguage: config['selectedLanguage'],
   );
   assert(env != null);
 
   Bloc.observer = SimpleBlocObserver();
 
-  runApp(App());
+  runApp(EasyLocalization(
+      supportedLocales: [
+        Locale('en', ''),
+        Locale('de', ''),
+        Locale('es', '')
+      ],
+      path: 'assets/translations',
+      fallbackLocale: Locale('en', ''),
+      child: App()));
 }

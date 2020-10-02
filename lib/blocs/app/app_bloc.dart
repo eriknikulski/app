@@ -9,7 +9,6 @@ import 'package:nhie/env.dart';
 import 'package:nhie/models/category.dart';
 import 'package:nhie/models/statement.dart';
 
-
 class AppBloc extends Bloc<AppEvent, AppState> {
   final StatementBloc statementBloc;
 
@@ -41,6 +40,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       _mapAddStatement(event);
     } else if (event is ChangeCategories) {
       _mapChangeCategories(event);
+    } else if (event is ChangeLanguage) {
+      _mapChangeLanguage(event);
     }
   }
 
@@ -50,22 +51,27 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Stream<Initialized> _mapInitializeToInitialized(Initialize event) async* {
-    statementBloc.add(LoadStatement(event.categories));
+    categories = event.categories;
+    statementBloc.add(LoadStatement(categories: categories));
     yield Initialized();
 
     new Timer.periodic(Duration(seconds: env.prefetchWaitTime), (Timer t) {
       if ((statements.length - 1 - currentStatementIndex) <
           env.maxPrefetchCalls) {
-        statementBloc.add(LoadStatement(event.categories));
+        statementBloc.add(LoadStatement(categories: categories));
       }
     });
   }
 
   Stream<Forward> _mapGoForwardToForward(GoForward event) async* {
     if (statements.length - 1 == currentStatementIndex) {
-      categories = event.categories;
+      categories ??= event.categories;
       goForward = true;
-      statementBloc.add(LoadStatement(event.categories));
+      if (event.statement != null) {
+        statementBloc.add(LoadStatement(statement: event.statement));
+      } else {
+        statementBloc.add(LoadStatement(categories: event.categories));
+      }
       return;
     }
     var statement = statements[++currentStatementIndex];
@@ -76,13 +82,20 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     statements.add(event.statement);
     if (goForward || state is AppException) {
       goForward = false;
-      add(GoForward(categories));
+      add(GoForward(categories: categories));
     }
   }
 
   void _mapChangeCategories(ChangeCategories event) {
     categories = event.categories;
     statements.removeRange(currentStatementIndex + 1, statements.length);
+  }
+
+  void _mapChangeLanguage(ChangeLanguage event) {
+    env.selectedLanguage = event.language;
+    statements.removeRange(currentStatementIndex + 1, statements.length);
+    if (currentStatementIndex == -1) return;
+    add(GoForward(statement: statements[statements.length - 1]));
   }
 
   @override

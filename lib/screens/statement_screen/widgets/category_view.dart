@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show describeEnum;
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 
@@ -63,7 +64,7 @@ class _CategoryViewState extends State<CategoryView> {
                           ? Theme.of(context).textTheme.subhead.color
                           : Color(0xFF9e9e9e),
                     ),
-              ),
+              ).tr(),
             ],
           ),
         ),

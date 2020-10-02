@@ -14,16 +14,19 @@ defaultSetup() async {
   Map config = json.decode(raw);
 
   BuildEnvironment.init(
-      flavor: BuildFlavor.development,
-      baseUrl: config['dev']['baseUrl'] as String,
-      defaultStatement: Statement.fromMap(config['defaultStatement']),
-      errorStatement: Statement.fromMap(config['errorStatement']),
-      categories: [
-        Category.fromMap(config['categories']['harmless']),
-        Category.fromMap(config['categories']['delicate']),
-        Category.fromMap(config['categories']['offensive'])
-      ],
-      maxPrefetchCalls: config['maxPrefetchCalls'],
-      prefetchWaitTime: config['prefetchWaitTime'],);
+    flavor: BuildFlavor.development,
+    baseUrl: config['dev']['baseUrl'] as String,
+    defaultStatement: Statement.fromMap(config['defaultStatement']),
+    errorStatement: Statement.fromMap(config['errorStatement']),
+    categories: [
+      Category.fromMap(config['categories']['harmless']),
+      Category.fromMap(config['categories']['delicate']),
+      Category.fromMap(config['categories']['offensive'])
+    ],
+    maxPrefetchCalls: config['maxPrefetchCalls'],
+    prefetchWaitTime: config['prefetchWaitTime'],
+    languageCodes: config['languageCodes'].cast<String>(),
+    selectedLanguage: config['selectedLanguage'],
+  );
   assert(env != null);
 }

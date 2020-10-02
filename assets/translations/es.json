@@ -1,0 +1,12 @@
+{
+  "harmless": "",
+  "delicate": "",
+  "offensive": "",
+
+  "en": "English",
+  "de": "Deutsch",
+  "es": "Español",
+
+  "defaultStatement": "toque para comenzar",
+  "errorStatement": "No se pudo cargar la declaración"
+}

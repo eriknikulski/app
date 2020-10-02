@@ -79,7 +79,7 @@ main() async {
       appBloc = AppBloc(statementBloc: StatementBloc());
       Iterator<Statement> expectedResponse = statementIterable.iterator;
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
           .thenAnswer((_) async {
         var current = jsonEncode(next(expectedResponse));
         return http.Response(current, 200);
@@ -109,7 +109,7 @@ main() async {
 
     blocTest('emits [Initialized(),] when initialized', build: () {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
           .thenAnswer((_) async {
         return http.Response('', 400);
       });
@@ -125,14 +125,14 @@ main() async {
     blocTest('emits [Initialized(),] when initialized',
         build: () {
           when(client.get(
-                  '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+                  '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
               .thenAnswer((_) async {
             return http.Response(jsonEncode(statement), 200);
           });
           return appBloc;
         },
         act: (AppBloc bloc) async =>
-            bloc..add(Initialize(categories))..add(GoForward(categories)),
+            bloc..add(Initialize(categories))..add(GoForward(categories: categories)),
         expect: <AppState>[
           Initialized(),
           Forward(statement),

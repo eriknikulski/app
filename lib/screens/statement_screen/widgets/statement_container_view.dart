@@ -36,8 +36,8 @@ class _StatementContainerViewState extends State<StatementContainerView> {
       bottom: 0,
       left: 0,
       child: GestureDetector(
-          onTap: () =>
-              BlocProvider.of<AppBloc>(context).add(GoForward(categories)),
+          onTap: () => BlocProvider.of<AppBloc>(context)
+              .add(GoForward(categories: categories)),
           child: Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
@@ -52,7 +52,8 @@ class _StatementContainerViewState extends State<StatementContainerView> {
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx < 0 && !swipes) {
-          BlocProvider.of<AppBloc>(context).add(GoForward(categories));
+          BlocProvider.of<AppBloc>(context)
+              .add(GoForward(categories: categories));
         }
         swipes = true;
       },

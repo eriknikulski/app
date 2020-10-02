@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:nhie/models/statement.dart';
@@ -12,7 +13,7 @@ class StatementView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
-        statement.text,
+        tr(statement.text),
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.display1,
       ),

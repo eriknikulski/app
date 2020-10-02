@@ -1,0 +1,12 @@
+{
+  "harmless": "entspannt",
+  "delicate": "riskant",
+  "offensive": "wild",
+
+  "en": "English",
+  "de": "Deutsch",
+  "es": "Español",
+
+  "defaultStatement": "Tippe, um zu starten",
+  "errorStatement": "Statement konnte nicht geladen werden"
+}

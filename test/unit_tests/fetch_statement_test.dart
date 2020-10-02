@@ -34,11 +34,11 @@ main() async {
           '{"ID":"e1ce4647-c87d-4a0f-a91b-8db204e8889d","statement":"Never have I ever told somebody that I love his/her body.","category":"harmless"}';
 
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
           .thenAnswer((_) async => http.Response(answer, 200));
 
       expect(
-          await StatementApiProvider.fetchStatement([category]),
+          await StatementApiProvider.fetchRandomStatement([category]),
           TypeMatcher<Statement>().having(
               (statement) => statement.text,
               'statement text',
@@ -47,22 +47,22 @@ main() async {
 
     test('no internet connection', () async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
           .thenAnswer((_) async => throw SocketException('Failed host lookup'));
 
       expect(
-          StatementApiProvider.fetchStatement([category]),
+          StatementApiProvider.fetchRandomStatement([category]),
           throwsA(const TypeMatcher<SocketException>().having(
               (e) => e.message, 'error message', 'Failed host lookup')));
     });
 
     test('bad http status code', () async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&game_id=$uuid&language='))
           .thenAnswer((_) async => http.Response('', 400));
 
       expect(
-          StatementApiProvider.fetchStatement([category]),
+          StatementApiProvider.fetchRandomStatement([category]),
           throwsA(const TypeMatcher<SocketException>()
               .having((e) => e.message, 'error message', 'Bad status code')));
     });

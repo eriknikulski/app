@@ -47,13 +47,38 @@ void main() {
     });
 
     group('GoForward', () {
-      test('toString returns correct value', () {
-        expect(GoForward(categories).toString(),
-            'GoForward { categories: $categories }');
+      group('toString returns correct value', () {
+        test('only categories', () {
+          expect(GoForward(categories: categories).toString(),
+              'GoForward { categories: $categories, statement: null }');
+        });
+
+        test('only statement', () {
+          expect(GoForward(statement: statement).toString(),
+              'GoForward { categories: null, statement: $statement }');
+        });
+
+        test('categories and statement', () {
+          expect(
+              GoForward(categories: categories, statement: statement)
+                  .toString(),
+              'GoForward { categories: $categories, statement: $statement }');
+        });
       });
 
-      test('props returns correct value', () {
-        expect(GoForward(categories).props, [categories]);
+      group('props returns correct value', () {
+        test('only categories', () {
+          expect(GoForward(categories: categories).props, [categories, null]);
+        });
+
+        test('only statement', () {
+          expect(GoForward(statement: statement).props, [null, statement]);
+        });
+
+        test('categories and statement', () {
+          expect(GoForward(categories: categories, statement: statement).props,
+              [categories, statement]);
+        });
       });
     });
 
@@ -76,6 +101,17 @@ void main() {
 
       test('props returns correct value', () {
         expect(ChangeCategories(categories).props, [categories]);
+      });
+    });
+
+    group('ChangeLanguage', () {
+      test('toString returns correct value', () {
+        expect(
+            ChangeLanguage('en').toString(), 'ChangeLanguage { language: en }');
+      });
+
+      test('props returns correct value', () {
+        expect(ChangeLanguage('en').props, ['en']);
       });
     });
 

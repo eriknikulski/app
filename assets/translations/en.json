@@ -1,0 +1,12 @@
+{
+  "harmless": "harmless",
+  "delicate": "delicate",
+  "offensive": "offensive",
+
+  "en": "English",
+  "de": "Deutsch",
+  "es": "Español",
+
+  "defaultStatement": "Tap to start",
+  "errorStatement": "Statement couldn't be loaded"
+}

@@ -27,14 +27,16 @@
   },
   "defaultStatement": {
     "ID": null,
-    "statement": "Tap to start",
+    "statement": "defaultStatement",
     "category": "internal"
   },
   "errorStatement": {
     "ID": null,
-    "statement": "Statement couldn't be loaded",
+    "statement": "errorStatement",
     "category": "internal"
   },
   "maxPrefetchCalls": 5,
-  "prefetchWaitTime": 1
+  "prefetchWaitTime": 1,
+  "languageCodes": ["en", "de", "es"],
+  "selectedLanguage": "en"
 }

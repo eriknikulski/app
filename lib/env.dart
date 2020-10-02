@@ -16,6 +16,8 @@ class BuildEnvironment {
   final List<Category> categories;
   final int maxPrefetchCalls;
   final int prefetchWaitTime;
+  final List<String> languageCodes;
+  String selectedLanguage;
 
   BuildEnvironment._init(
       {this.flavor,
@@ -24,7 +26,9 @@ class BuildEnvironment {
       this.errorStatement,
       this.categories,
       this.maxPrefetchCalls,
-      this.prefetchWaitTime});
+      this.prefetchWaitTime,
+      this.languageCodes,
+      this.selectedLanguage});
 
   static void init(
           {@required flavor,
@@ -33,7 +37,9 @@ class BuildEnvironment {
           @required errorStatement,
           @required categories,
           @required maxPrefetchCalls,
-          @required prefetchWaitTime,}) =>
+          @required prefetchWaitTime,
+          @required languageCodes,
+          @required selectedLanguage}) =>
       _env ??= BuildEnvironment._init(
           flavor: flavor,
           baseUrl: baseUrl,
@@ -41,5 +47,7 @@ class BuildEnvironment {
           errorStatement: errorStatement,
           categories: categories,
           maxPrefetchCalls: maxPrefetchCalls,
-          prefetchWaitTime: prefetchWaitTime,);
+          prefetchWaitTime: prefetchWaitTime,
+          languageCodes: languageCodes,
+          selectedLanguage: selectedLanguage);
 }

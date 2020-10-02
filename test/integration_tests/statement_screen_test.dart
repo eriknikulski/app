@@ -43,14 +43,14 @@ main() async {
   group('statement screen widget', () {
     testWidgets('initial state', (WidgetTester tester) async {
       when(client.get(
-              '${env.baseUrl}/statements/random?category[]=harmless&category[]=delicate&category[]=offensive&game_id=$uuid'))
+              '${env.baseUrl}/statements/random?category[]=harmless&category[]=delicate&category[]=offensive&game_id=$uuid&language='))
           .thenAnswer((_) async {
         return http.Response(answersHarmless[0], 200);
       });
 
       Widget statementScreen = MediaQuery(
         data: MediaQueryData(),
-        child: MaterialApp(home: StatementScreen(bloc: bloc)),
+        child: MaterialApp(home: StatementScreen()),
       );
 
       await tester.pumpWidget(statementScreen);

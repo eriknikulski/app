@@ -24,14 +24,18 @@ class Initialize extends AppEvent {
 
 class GoForward extends AppEvent {
   final List<Category> categories;
+  final Statement statement;
 
-  const GoForward(this.categories) : assert(categories.length > 0);
+  const GoForward({this.categories, this.statement})
+      : assert(
+            (categories != null && categories.length > 0) || statement != null);
 
   @override
-  List<Object> get props => [categories];
+  List<Object> get props => [categories, statement];
 
   @override
-  String toString() => 'GoForward { categories: $categories }';
+  String toString() =>
+      'GoForward { categories: $categories, statement: $statement }';
 }
 
 class AddStatement extends AppEvent {
@@ -56,6 +60,18 @@ class ChangeCategories extends AppEvent {
 
   @override
   String toString() => 'ChangeCategories { categories: $categories }';
+}
+
+class ChangeLanguage extends AppEvent {
+  final String language;
+
+  const ChangeLanguage(this.language) : assert(language != null);
+
+  @override
+  List<Object> get props => [language];
+
+  @override
+  String toString() => 'ChangeLanguage { language: $language }';
 }
 
 class HandleException extends AppEvent {
